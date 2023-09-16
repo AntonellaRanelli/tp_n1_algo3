@@ -15,7 +15,7 @@ public class MasoTest {
     public void testIngresarCarta()
     {
         Maso nuevoMaso = new Maso();
-        Carta nuevaCarta = new Carta("rojo", "picas", "1", false);
+        Carta nuevaCarta = new Carta(ColorCarta.ROJO, Palo.PICAS, Valor.UNO, false);
 
         nuevoMaso.apilarCarta(nuevaCarta);
 
@@ -26,7 +26,7 @@ public class MasoTest {
     public void testDesapilar()
     {
         Maso nuevoMaso = new Maso();
-        Carta nuevaCarta = new Carta("rojo", "picas", "1", false);
+        Carta nuevaCarta = new Carta(ColorCarta.ROJO, Palo.PICAS, Valor.UNO, false);
         Carta cartaAuxiliar;
 
         nuevoMaso.apilarCarta(nuevaCarta);

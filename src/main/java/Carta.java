@@ -1,13 +1,16 @@
+import java.awt.*;
+import java.awt.Color;
+
 public class Carta {
-    private String color;
+    private ColorCarta color;
 
-    private String palo;
+    private Palo palo;
 
-    private String numero;
+    private Valor numero;
 
     private boolean volteada;
 
-    public Carta(String color, String palo, String numero, boolean volteada)
+    public Carta(ColorCarta color, Palo palo, Valor numero, boolean volteada)
     {
         this.color = color;
         this.palo = palo;
@@ -15,17 +18,17 @@ public class Carta {
         this.volteada = volteada;
     }
 
-    public String obtenerColor()
+    public ColorCarta obtenerColor()
     {
         return color;
     }
 
-    public String obtenerPalo()
+    public Palo obtenerPalo()
     {
         return palo;
     }
 
-    public String obtenerNumero()
+    public Valor obtenerNumero()
     {
         return numero;
     }
