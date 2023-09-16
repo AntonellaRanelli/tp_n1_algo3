@@ -21,6 +21,9 @@ public class Maso
 
     public Carta desapilarCarta()
     {
+        if (cantActual == 0)
+            return null;
+        cantActual--;
         return coleccionCartas.pop();
     }
 
