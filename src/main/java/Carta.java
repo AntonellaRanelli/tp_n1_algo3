@@ -51,4 +51,9 @@ public class Carta {
             volteada = false;
         return volteada;
     }
+
+    public String toString(){
+        String devolver = " " + palo + " " + color + " " + numero;
+        return devolver;
+    }
 }

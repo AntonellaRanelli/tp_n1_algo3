@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class ReglasTest {
@@ -115,5 +117,11 @@ public class ReglasTest {
         masoFoundation.apilarCarta(cartaUno);
 
         assertEquals(esperado, Reglas.movimientoValidoFoundation(masoFoundation, cartaDos));
+    }
+
+    @Test
+    public void testIniciarJuego(){
+        List<Carta> cartas = Reglas.iniciarJuego();
+        System.out.println(cartas);
     }
 }
