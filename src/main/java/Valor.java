@@ -1,6 +1,5 @@
 public enum Valor {
     AS,
-    UNO,
     DOS,
     TRES,
     CUATRO,

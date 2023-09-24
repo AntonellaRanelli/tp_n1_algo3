@@ -1,62 +1,63 @@
 public class Tablero {
 
-     private Maso stockPila;
-     private Maso discarPila;
-     private Maso foundationPilaUno;
-     private Maso foundationPilaDos;
-     private Maso foundationPilaTres;
-     private Maso foundationPilaCuatro;
-     private Maso pilaCartasUno;
-     private Maso pilaCartasDos;
-     private Maso pilaCartasTres;
-     private Maso pilaCartasCuatro;
-     private Maso pilaCartasCinco;
-     private Maso pilaCartasSeis;
-     private Maso pilaCartasSiete;
+     private Mazo mazo;
+     private Columna columnaUno;
+     private Columna columnaDos;
+     private Columna columnaTres;
+     private Columna columnaCuatro;
+     private Columna columnaCinco;
+     private Columna columnaSeis;
+     private Columna columnaSiete;
+     private Fundacion fundacionUno;
+     private Fundacion fundacionDos;
+     private Fundacion fundacionTres;
+     private Fundacion fundacionCuatro;
+//     private Maso pilaCartasSiete;
 
      public Tablero()
      {
-          stockPila = new Maso();
-          discarPila = new Maso();
-          foundationPilaUno = new Maso();
-          foundationPilaDos = new Maso();
-          foundationPilaTres = new Maso();
-          foundationPilaCuatro = new Maso();
-          pilaCartasUno = new Maso();
-          pilaCartasDos = new Maso();
-          pilaCartasTres = new Maso();
-          pilaCartasCuatro = new Maso();
-          pilaCartasCinco = new Maso();
-          pilaCartasSeis = new Maso();
-          pilaCartasSiete = new Maso();
+          mazo = new Mazo();
+          columnaUno = new Columna();
+          columnaDos = new Columna();
+          columnaTres = new Columna();
+          columnaCuatro = new Columna();
+          columnaCinco = new Columna();
+          columnaSeis = new Columna();
+          columnaSiete = new Columna();
+          fundacionUno = new Fundacion();
+          fundacionDos = new Fundacion();
+          fundacionTres = new Fundacion();
+          fundacionCuatro = new Fundacion();
      }
 
-     public Maso obtenerStockPila()
+     public void inicializarJuegoAleatorio()
      {
-          return stockPila;
-     }
+          mazo.crearMazo();
+          mazo.mezclarMazo();
 
-     public Maso obtenerDiscardPila()
-     {
-          return discarPila;
      }
-
-     public Maso obtenerFoundationPilaUno()
-     {
-          return foundationPilaUno;
-     }
-
-     public Maso obtenerFoundationMasoDos() {
-          return foundationPilaDos;
-     }
-
-     public Maso obtenerFoundationMasoTres() {
-          return foundationPilaTres;
-     }
-
-     public Maso obtenerFoundationMasoCuatro() {
-          return foundationPilaCuatro;
-     }
+//
+//     public Maso obtenerDiscardPila()
+//     {
+//          return discarPila;
+//     }
+//
+//     public Maso obtenerFoundationPilaUno()
+//     {
+//          return foundationPilaUno;
+//     }
+//
+//     public Maso obtenerFoundationMasoDos() {
+//          return foundationPilaDos;
+//     }
+//
+//     public Maso obtenerFoundationMasoTres() {
+//          return foundationPilaTres;
+//     }
+//
+//     public Maso obtenerFoundationMasoCuatro() {
+//          return foundationPilaCuatro;
+//     }
 
 
 }

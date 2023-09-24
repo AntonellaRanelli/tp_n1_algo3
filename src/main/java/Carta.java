@@ -2,25 +2,16 @@ import java.awt.*;
 import java.awt.Color;
 
 public class Carta {
-    private ColorCarta color;
-
     private Palo palo;
 
     private Valor numero;
 
-    private boolean volteada;
-
-    public Carta(ColorCarta color, Palo palo, Valor numero, boolean volteada)
+    public Carta(Palo palo, Valor numero)
     {
-        this.color = color;
+
         this.palo = palo;
         this.numero = numero;
-        this.volteada = volteada;
-    }
 
-    public ColorCarta obtenerColor()
-    {
-        return color;
     }
 
     public Palo obtenerPalo()
@@ -33,27 +24,8 @@ public class Carta {
         return numero;
     }
 
-    public boolean cartaVolteada()
-    {
-        return volteada;
-    }
-
-    public boolean voltearCartaCara()
-    {
-        if (!volteada)
-            volteada = true;
-        return volteada;
-    }
-
-    public boolean voltearCartaReverso()
-    {
-        if (volteada)
-            volteada = false;
-        return volteada;
-    }
-
     public String toString(){
-        String devolver = " " + palo + " " + color + " " + numero;
+        String devolver = "Palo: " + palo + ", Valor: "+ numero;
         return devolver;
     }
 }

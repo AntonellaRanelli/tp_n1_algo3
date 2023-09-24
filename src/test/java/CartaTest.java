@@ -6,34 +6,13 @@ import static org.junit.Assert.*;
 
 public class CartaTest {
     @Test
-    public void testEstadoCarta()
+    public void testCrearCarta()
     {
-        boolean estadoInicial = false;
-        Carta nuevaCarta = new Carta(ColorCarta.ROJO, Palo.PICAS, Valor.UNO, estadoInicial);
-        boolean resultado = nuevaCarta.cartaVolteada();
+        String resultado = "Palo: PICAS, Valor: UNO";
+        Carta nuevaCarta = new Carta(Palo.PICAS, Valor.AS);
+        String cartaCreada = nuevaCarta.toString();
 
-        assertEquals(resultado, estadoInicial);
+        assertEquals(resultado, cartaCreada);
     }
 
-    @Test
-    public void testVoltearCartaArriba()
-    {
-        boolean estadoInicial = false;
-        boolean estadoModificado = true;
-        Carta nuevaCarta = new Carta(ColorCarta.ROJO, Palo.PICAS, Valor.UNO, estadoInicial);
-        boolean resultado = nuevaCarta.voltearCartaCara();
-
-        assertEquals(resultado, estadoModificado);
-    }
-
-    @Test
-    public void testVoltearCartaAbajo()
-    {
-        boolean estadoInicial = true;
-        boolean estadoModificado = false;
-        Carta nuevaCarta = new Carta(ColorCarta.ROJO, Palo.PICAS, Valor.UNO, estadoInicial);
-        boolean resultado = nuevaCarta.voltearCartaReverso();
-
-        assertEquals(resultado, estadoModificado);
-    }
 }
