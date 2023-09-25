@@ -152,11 +152,18 @@ public class Tablero {
         }
     }
 
-    public  void hacerMovimientoFaC (Columna columna, Fundacion fundacion, List<Carta> cartasReveladasColumna, List<Carta> cartasReveladasFundacion )
+    public  boolean hacerMovimientoFaC (Columna columna, Fundacion fundacion)
     {
-        Carta ultimaCartaRCD = fundacion.obtenerUltimaCarta();
+        Carta ultimaCartaFundacion = fundacion.obtenerUltimaCarta();
+        Carta ultimaCartaColumna = columna.obtenerUltimaCartaRevelada();
 
-        //Falta metodo validar de Fundacion  a Columna
+        if (Reglas.validarMovimientoFundacionAColumna(ultimaCartaColumna, ultimaCartaFundacion)){
+            fundacion.eliminarUltimaCarta();
+            columna.agregarCarta(ultimaCartaFundacion);
+
+            return true;
+        }
+        return false;
     }
 
     public void mostrarEstadoColumnas() {

@@ -315,4 +315,61 @@ public class TableroTest {
         boolean resultado = tablero.hacerMovimientoCaF(columna, fundacion);
         boolean esperado = true;
     }
+
+    @Test
+    public void testFundacionAColumnaInvalido(){
+        Mazo mazo = new Mazo(new ArrayList<>(), new ArrayList<>());
+        List<Columna> columnas = new ArrayList<>();
+        List<Fundacion> fundaciones = new ArrayList<>();
+
+        for (int i = 0; i < 7; i++) {
+            columnas.add(i, new Columna(new ArrayList<>(), new ArrayList<>()));
+        }
+
+        for(int i=0; i<4; i++){
+            fundaciones.add(new Fundacion());
+        }
+
+        Tablero tablero = new Tablero(columnas, fundaciones, mazo);
+        Columna columna = tablero.getColumnaPorIndice(0);
+        Fundacion fundacion = tablero.getFundacionPorIndice(0);
+
+        Carta carta = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.AS);
+        fundacion.agregarCarta(carta);
+
+        boolean esperado = false;
+        boolean resultado = tablero.hacerMovimientoFaC(columna, fundacion);
+    }
+
+    @Test
+    public void testFundacionAColumnaValido(){
+        Mazo mazo = new Mazo(new ArrayList<>(), new ArrayList<>());
+        List<Columna> columnas = new ArrayList<>();
+        List<Fundacion> fundaciones = new ArrayList<>();
+
+        for (int i = 0; i < 7; i++) {
+            columnas.add(i, new Columna(new ArrayList<>(), new ArrayList<>()));
+        }
+
+        for(int i=0; i<4; i++){
+            fundaciones.add(new Fundacion());
+        }
+
+        Tablero tablero = new Tablero(columnas, fundaciones, mazo);
+        Columna columna = tablero.getColumnaPorIndice(0);
+        Fundacion fundacion = tablero.getFundacionPorIndice(0);
+
+        Carta carta = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.AS);
+        Carta cartaDos = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DOS);
+        Carta cartaTres = new Carta(ColorCarta.ROJO, Palo.DIAMANTE, Valor.TRES);
+
+        fundacion.agregarCarta(carta);
+        fundacion.agregarCarta(cartaDos);
+        columna.agregarCarta(cartaTres);
+
+        boolean esperado = true;
+        boolean resultado = tablero.hacerMovimientoFaC(columna, fundacion);
+
+        assertEquals(esperado, resultado);
+    }
 }

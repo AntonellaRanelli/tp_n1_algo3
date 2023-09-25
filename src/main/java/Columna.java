@@ -29,6 +29,10 @@ public class Columna {
         cartasReveladas.addAll(listaDeCartas);
     } //recibe una lista de cartas y la agrega al final del la lista de cartas reveladas
 
+    public void agregarCarta(Carta carta){
+        cartasReveladas.add(carta);
+    }
+
     public List<Carta> getCartasReveladas() { // Devuelve lista
         return cartasReveladas;
     }

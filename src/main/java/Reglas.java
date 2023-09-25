@@ -82,6 +82,22 @@ public class Reglas {
         return false; // Movimiento no válido
     }
 
+    public static boolean validarMovimientoFundacionAColumna(Carta cartaColumna, Carta cartaFundacion){
+
+        if (cartaColumna == null || cartaFundacion == null)
+            return false;
+
+        if(cartaColumna.getColor() == cartaFundacion.getColor())
+            return false;
+
+        Valor numeroCartaColumna = cartaColumna.getNumero();
+        Valor numeroCartaFundacion = cartaFundacion.getNumero();
+
+        if (numeroCartaFundacion.ordinal() + 1 == numeroCartaColumna.ordinal())
+            return true;
+
+        return false;
+    }
     public static boolean verificarJuegoGanado(List<Fundacion> fundaciones) {
         int cantidadMaximaCartas = 13;
         for (Fundacion fundacion : fundaciones) {
