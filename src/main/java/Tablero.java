@@ -120,15 +120,24 @@ public class Tablero {
         return mazo;
     }
 
-    public void hacerMovimientoCaF(Columna columna, Fundacion fundacion, List<Carta> cartasReveladasColumna, Carta cartaReveladaFundacion)
+    public boolean hacerMovimientoCaF(Columna columna, Fundacion fundacion)
     {
+        Carta cartaAuxiliar = columna.obtenerUltimaCartaRevelada();
 
+        if (cartaAuxiliar == null)
+            return false;
 
-        if (Reglas.validarMovimientoColumnaAFundacion(cartasReveladasColumna,cartaReveladaFundacion))
+        List<Carta> arregloAuxiliar = new ArrayList<>();
+        arregloAuxiliar.add(cartaAuxiliar);
+
+        if (Reglas.validarMovimientoColumnaAFundacion(cartaAuxiliar, fundacion.obtenerUltimaCarta()))
         {
-            fundacion.agregarCarta(cartaReveladaFundacion);
-            columna.sacarCarta(columna.getCartasReveladas().size()-1);
+            fundacion.agregarCarta(cartaAuxiliar);
+            columna.sacarCartas(arregloAuxiliar);
+            return true;
         }
+
+        return false;
     }
 
     public  void hacerMovimientoCaC(Columna columnaOrigen, Columna columnaDestino, List<Carta> cartasReveladasCO, List<Carta> cartasReveladasCD )

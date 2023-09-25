@@ -24,24 +24,20 @@ public class Reglas {
         return true; // Movimiento válido
     }
 
-    public static boolean validarMovimientoColumnaAFundacion(List<Carta> cartasReveladasColumna, Carta cartaReveladaFundacion) {
-        // Verificar si la fundación es null
-        if (cartaReveladaFundacion == null) {
-            // La última carta de la lista de cartas reveladas de columna debe ser 1
-            if (!cartasReveladasColumna.isEmpty() && cartasReveladasColumna.get(cartasReveladasColumna.size() - 1).getNumero() == Valor.AS) {
-                return true;
-            }
-        } else {
-            // Verificar si la última carta de la lista de cartas reveladas de columna es de igual palo que la carta revelada de fundación
-            if (!cartasReveladasColumna.isEmpty() && cartasReveladasColumna.get(cartasReveladasColumna.size() - 1).getPalo().equals(cartaReveladaFundacion.getPalo())) {
-                // Verificar si el número de la última carta revelada de la lista de columna es mayor por 1 que la carta fundación
-                if (cartasReveladasColumna.get(cartasReveladasColumna.size() - 1).getNumero().ordinal() == cartaReveladaFundacion.getNumero().ordinal() + 1) {
+    public static boolean validarMovimientoColumnaAFundacion(Carta cartaColumna, Carta cartaReveladaFundacion)
+    {
+        if (cartaReveladaFundacion == null && (cartaColumna.getNumero() == Valor.AS)) {
+            return true;
+        }
+
+        if (cartaReveladaFundacion != null){
+            if (cartaColumna.getPalo() == cartaReveladaFundacion.getPalo()) {
+                if (cartaColumna.getNumero().ordinal() == cartaReveladaFundacion.getNumero().ordinal() + 1) {
                     return true;
                 }
             }
         }
-
-        return false; // Movimiento no válido
+        return false;
     }
 
     public static boolean validarMovimientoMazoAColumna( List<Carta> cartasReveladasColumna, Carta ultimaCartaReveladaMazo) {

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Fundacion {
@@ -5,7 +6,7 @@ public class Fundacion {
     private List<Carta> cartas;
 
     public Fundacion(){
-
+        this.cartas = new ArrayList<>();
     }
 
     public Palo getPalo() {
@@ -33,6 +34,13 @@ public class Fundacion {
             palo = carta.getPalo();
 
         cartas.add(carta);
+    }
+
+    public void eliminarUltimaCarta(){
+        if (!cartas.isEmpty()) {
+            int lastIndex = cartas.size() - 1;
+            cartas.remove(lastIndex);
+        }
     }
 
     public boolean mazoVacio()

@@ -21,6 +21,8 @@ public class Mazo {
             Carta cartaRevelada = cartasOcultas.remove(lastIndex);
             cartasReveladas.add(cartaRevelada);
             return cartaRevelada;
+        }else{
+            resetearMazo();
         }
         return null; // Si no hay cartas ocultas devuelve null
     }
