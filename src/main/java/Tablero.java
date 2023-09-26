@@ -130,13 +130,55 @@ public class Tablero {
         List<Carta> arregloAuxiliar = new ArrayList<>();
         arregloAuxiliar.add(cartaAuxiliar);
 
-        if (Reglas.validarMovimientoColumnaAFundacion(cartaAuxiliar, fundacion.obtenerUltimaCarta()))
+        if (Reglas.validarMovimientoAFundacion(cartaAuxiliar, fundacion.obtenerUltimaCarta()))
         {
             fundacion.agregarCarta(cartaAuxiliar);
             columna.sacarCartas(arregloAuxiliar);
             return true;
         }
 
+        return false;
+    }
+
+    public boolean hacerMovimientoMaF(Mazo mazo, Fundacion fundacion){
+        Carta cartaAuxiliar = mazo.obtenerUltimaCartaRevelada();
+
+        if (cartaAuxiliar == null)
+            return false;
+
+        if (Reglas.validarMovimientoAFundacion(cartaAuxiliar, fundacion.obtenerUltimaCarta()))
+        {
+            fundacion.agregarCarta(cartaAuxiliar);
+            mazo.entregarCarta();
+            return true;
+        }
+        return false;
+    }
+
+
+    public  boolean hacerMovimientoFaC (Columna columna, Fundacion fundacion)
+    {
+        Carta ultimaCartaFundacion = fundacion.obtenerUltimaCarta();
+        Carta ultimaCartaColumna = columna.obtenerUltimaCartaRevelada();
+
+        if (Reglas.validarMovimientoAColumna(ultimaCartaColumna, ultimaCartaFundacion)){
+            fundacion.eliminarUltimaCarta();
+            columna.agregarCarta(ultimaCartaFundacion);
+
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hacerMovmientoMaC(Columna columna, Mazo mazo){
+        Carta ultimaCartaMazo = mazo.obtenerUltimaCartaRevelada();
+        Carta ultimaCartaColumna = columna.obtenerUltimaCartaRevelada();
+
+        if (Reglas.validarMovimientoAColumna(ultimaCartaColumna, ultimaCartaMazo)){
+            columna.agregarCarta(ultimaCartaMazo);
+            mazo.entregarCarta();
+            return true;
+        }
         return false;
     }
 
@@ -150,20 +192,6 @@ public class Tablero {
             columnaOrigen.sacarCartas(cartasReveladasCO);
 
         }
-    }
-
-    public  boolean hacerMovimientoFaC (Columna columna, Fundacion fundacion)
-    {
-        Carta ultimaCartaFundacion = fundacion.obtenerUltimaCarta();
-        Carta ultimaCartaColumna = columna.obtenerUltimaCartaRevelada();
-
-        if (Reglas.validarMovimientoFundacionAColumna(ultimaCartaColumna, ultimaCartaFundacion)){
-            fundacion.eliminarUltimaCarta();
-            columna.agregarCarta(ultimaCartaFundacion);
-
-            return true;
-        }
-        return false;
     }
 
     public void mostrarEstadoColumnas() {
