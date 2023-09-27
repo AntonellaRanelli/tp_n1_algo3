@@ -170,9 +170,10 @@ public class Tablero {
         return false;
     }
 
-    public boolean hacerMovmientoMaC(Columna columna, Mazo mazo){
+    public boolean hacerMovimientoMaC(Columna columna, Mazo mazo){
         Carta ultimaCartaMazo = mazo.obtenerUltimaCartaRevelada();
         Carta ultimaCartaColumna = columna.obtenerUltimaCartaRevelada();
+
 
         if (Reglas.validarMovimientoAColumna(ultimaCartaColumna, ultimaCartaMazo)){
             columna.agregarCarta(ultimaCartaMazo);
@@ -182,16 +183,17 @@ public class Tablero {
         return false;
     }
 
-    public  void hacerMovimientoCaC(Columna columnaOrigen, Columna columnaDestino, List<Carta> cartasReveladasCO, List<Carta> cartasReveladasCD )
+    public boolean hacerMovimientoCaC(Columna columnaOrigen, Columna columnaDestino, List<Carta> cartasAMover )
     {
-        Carta ultimaCartaRCD = cartasReveladasCD.get(cartasReveladasCD.size()-1);
+        Carta ultimaCartaRCD = columnaDestino.obtenerUltimaCartaRevelada();
 
-        if(Reglas.validarMovimientoEntreColumnas(cartasReveladasCO, ultimaCartaRCD))
+        if(Reglas.validarMovimientoEntreColumnas(cartasAMover, ultimaCartaRCD))
         {
-            columnaDestino.agregarCartas(cartasReveladasCO);
-            columnaOrigen.sacarCartas(cartasReveladasCO);
-
+            columnaDestino.agregarCartas(columnaDestino.getCartasReveladas());
+            columnaOrigen.sacarCartas(cartasAMover);
+            return true;
         }
+        return false;
     }
 
     public void mostrarEstadoColumnas() {

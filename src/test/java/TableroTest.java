@@ -28,15 +28,13 @@ public class TableroTest {
         Columna columna = tablero.getColumnaPorIndice(0);
         Fundacion fundacion = tablero.getFundacionPorIndice(0);
         List<Carta> listadoCarta = new ArrayList<>();
-        boolean esperado = true;
 
         Carta carta = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.AS);
         listadoCarta.add(carta);
         columna.agregarCartas(listadoCarta);
 
-        boolean resultado = tablero.hacerMovimientoCaF(columna, fundacion);
 
-        assertEquals(esperado, resultado);
+        assertTrue(tablero.hacerMovimientoCaF(columna, fundacion));
     }
 
     @Test
@@ -59,15 +57,13 @@ public class TableroTest {
         Columna columna = tablero.getColumnaPorIndice(0);
         Fundacion fundacion = tablero.getFundacionPorIndice(0);
         List<Carta> listadoCarta = new ArrayList<>();
-        boolean esperado = false;
 
         Carta carta = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DIEZ);
         listadoCarta.add(carta);
         columna.agregarCartas(listadoCarta);
 
-        boolean resultado = tablero.hacerMovimientoCaF(columna, fundacion);
 
-        assertEquals(esperado, resultado);
+        assertFalse(tablero.hacerMovimientoCaF(columna, fundacion));
     }
 
     @Test
@@ -124,10 +120,8 @@ public class TableroTest {
         List<Carta> listadoCarta = new ArrayList<>();
         columna.agregarCartas(listadoCarta);
 
-        boolean esperado = false;
-        boolean resultado = tablero.hacerMovimientoCaF(columna, fundacion);
 
-        assertEquals(esperado, resultado);
+        assertFalse(tablero.hacerMovimientoCaF(columna, fundacion));
     }
 
     @Test
@@ -157,10 +151,8 @@ public class TableroTest {
 
         tablero.hacerMovimientoCaF(columna, fundacion);
 
-        boolean resultado = Reglas.verificarJuegoGanado(fundaciones);
-        boolean esperado = false;
 
-        assertEquals(esperado, resultado);
+        assertFalse(Reglas.verificarJuegoGanado(fundaciones));
     }
 
     @Test
@@ -204,10 +196,8 @@ public class TableroTest {
 
         tablero.hacerMovimientoCaF(columna, fundacion);
 
-        boolean resultado = Reglas.verificarJuegoGanado(fundaciones);
-        boolean esperado = true;
 
-        assertEquals(esperado, resultado);
+        assertTrue(Reglas.verificarJuegoGanado(fundaciones));
     }
 
     @Test
@@ -250,10 +240,9 @@ public class TableroTest {
         fundacion.eliminarUltimaCarta();
         columna.agregarCartas(listadoCarta);
 
-        boolean resultado = Reglas.verificarJuegoGanado(fundaciones);
-        boolean esperado = false;
 
-        assertEquals(esperado, resultado);
+
+        assertFalse(Reglas.verificarJuegoGanado(fundaciones));
     }
 
     @Test
@@ -282,8 +271,8 @@ public class TableroTest {
         columna.agregarCartas(listadoCarta);
 
         tablero.hacerMovimientoCaF(columna, fundacion);
-        boolean resultado = tablero.hacerMovimientoCaF(columna, fundacion);
-        boolean esperado = true;
+
+        assertTrue(tablero.hacerMovimientoCaF(columna, fundacion));
     }
 
     @Test
@@ -312,8 +301,8 @@ public class TableroTest {
         columna.agregarCartas(listadoCarta);
 
         tablero.hacerMovimientoCaF(columna, fundacion);
-        boolean resultado = tablero.hacerMovimientoCaF(columna, fundacion);
-        boolean esperado = true;
+
+        assertFalse(tablero.hacerMovimientoCaF(columna, fundacion));
     }
 
     @Test
@@ -337,8 +326,7 @@ public class TableroTest {
         Carta carta = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.AS);
         fundacion.agregarCarta(carta);
 
-        boolean esperado = false;
-        boolean resultado = tablero.hacerMovimientoFaC(columna, fundacion);
+        assertFalse(tablero.hacerMovimientoFaC(columna, fundacion));
     }
 
     @Test
@@ -367,9 +355,247 @@ public class TableroTest {
         fundacion.agregarCarta(cartaDos);
         columna.agregarCarta(cartaTres);
 
-        boolean esperado = true;
-        boolean resultado = tablero.hacerMovimientoFaC(columna, fundacion);
 
-        assertEquals(esperado, resultado);
+        assertTrue(tablero.hacerMovimientoFaC(columna, fundacion));
+    }
+
+    @Test
+    public void testColumnaAColumnaValido(){
+        Mazo mazo = new Mazo(new ArrayList<>(), new ArrayList<>());
+        List<Columna> columnas = new ArrayList<>();
+        List<Fundacion> fundaciones = new ArrayList<>();
+
+        for (int i = 0; i < 7; i++) {
+            columnas.add(i, new Columna(new ArrayList<>(), new ArrayList<>()));
+        }
+
+        for(int i=0; i<4; i++){
+            fundaciones.add(new Fundacion());
+        }
+
+        Tablero tablero = new Tablero(columnas, fundaciones, mazo);
+        Columna columna = tablero.getColumnaPorIndice(0);
+        Columna columna1 = tablero.getColumnaPorIndice(1);
+
+
+        Carta cartaDos = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DOS);
+        Carta cartaTres = new Carta(ColorCarta.ROJO, Palo.DIAMANTE, Valor.TRES);
+
+        columna1.agregarCarta(cartaDos);
+        List<Carta> cartasAMover = new ArrayList<>();
+        cartasAMover.add(cartaDos);
+        columna.agregarCarta(cartaTres);
+
+        assertTrue(tablero.hacerMovimientoCaC(columna1, columna, cartasAMover));
+    }
+
+    @Test
+    public void testColumnaAColumnaVaciaValido(){
+        Mazo mazo = new Mazo(new ArrayList<>(), new ArrayList<>());
+        List<Columna> columnas = new ArrayList<>();
+        List<Fundacion> fundaciones = new ArrayList<>();
+
+        for (int i = 0; i < 7; i++) {
+            columnas.add(i, new Columna(new ArrayList<>(), new ArrayList<>()));
+        }
+
+        for(int i=0; i<4; i++){
+            fundaciones.add(new Fundacion());
+        }
+
+        Tablero tablero = new Tablero(columnas, fundaciones, mazo);
+        Columna columna = tablero.getColumnaPorIndice(0);
+        Columna columna1 = tablero.getColumnaPorIndice(1);
+
+
+        Carta cartaK = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.K);
+
+        columna1.agregarCarta(cartaK);
+        List<Carta> cartasAMover = new ArrayList<>();
+        cartasAMover.add(cartaK);
+
+        assertTrue(tablero.hacerMovimientoCaC(columna1, columna, cartasAMover));
+    }
+
+    @Test
+    public void testColumnaAColumnaInvalido(){
+        Mazo mazo = new Mazo(new ArrayList<>(), new ArrayList<>());
+        List<Columna> columnas = new ArrayList<>();
+        List<Fundacion> fundaciones = new ArrayList<>();
+
+        for (int i = 0; i < 7; i++) {
+            columnas.add(i, new Columna(new ArrayList<>(), new ArrayList<>()));
+        }
+
+        for(int i=0; i<4; i++){
+            fundaciones.add(new Fundacion());
+        }
+
+        Tablero tablero = new Tablero(columnas, fundaciones, mazo);
+        Columna columna = tablero.getColumnaPorIndice(0);
+        Columna columna1 = tablero.getColumnaPorIndice(1);
+
+
+        Carta cartaDos = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DOS);
+        Carta cartaTres = new Carta(ColorCarta.ROJO, Palo.DIAMANTE, Valor.TRES);
+
+        columna1.agregarCarta(cartaDos);
+        List<Carta> cartasAMover = new ArrayList<>();
+        cartasAMover.add(cartaTres);
+        columna.agregarCarta(cartaTres);
+
+        assertFalse(tablero.hacerMovimientoCaC(columna, columna1, cartasAMover));
+    }
+
+    @Test
+    public void testColumnaAColumnaVaciaInvalido(){
+        Mazo mazo = new Mazo(new ArrayList<>(), new ArrayList<>());
+        List<Columna> columnas = new ArrayList<>();
+        List<Fundacion> fundaciones = new ArrayList<>();
+
+        for (int i = 0; i < 7; i++) {
+            columnas.add(i, new Columna(new ArrayList<>(), new ArrayList<>()));
+        }
+
+        for(int i=0; i<4; i++){
+            fundaciones.add(new Fundacion());
+        }
+
+        Tablero tablero = new Tablero(columnas, fundaciones, mazo);
+        Columna columna = tablero.getColumnaPorIndice(0);
+        Columna columna1 = tablero.getColumnaPorIndice(1);
+
+
+        Carta cartaTres = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.TRES);
+
+        columna1.agregarCarta(cartaTres);
+        List<Carta> cartasAMover = new ArrayList<>();
+        cartasAMover.add(cartaTres);
+
+        assertFalse(tablero.hacerMovimientoCaC(columna1, columna, cartasAMover));
+    }
+
+    @Test
+    public void testMazoaFundacionValido(){
+        Mazo mazo = new Mazo(new ArrayList<>(), new ArrayList<>());
+        List<Columna> columnas = new ArrayList<>();
+        List<Fundacion> fundaciones = new ArrayList<>();
+
+        for (int i = 0; i < 7; i++) {
+            columnas.add(i, new Columna(new ArrayList<>(), new ArrayList<>()));
+        }
+
+        for(int i=0; i<4; i++){
+            fundaciones.add(new Fundacion());
+        }
+
+        Tablero tablero = new Tablero(columnas, fundaciones, mazo);
+        Fundacion fundacion = tablero.getFundacionPorIndice(0);
+
+        Carta carta = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.AS);
+        Carta cartaDos = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DOS);
+        Carta cartaTres = new Carta(ColorCarta.ROJO, Palo.DIAMANTE, Valor.TRES);
+
+        List<Carta> cartasMazo = new ArrayList<>();
+        cartasMazo.add(cartaTres);
+        cartasMazo.add(cartaDos);
+        mazo.setCartasOcultas(cartasMazo);
+        mazo.revelarCarta();
+        fundacion.agregarCarta(carta);
+
+        assertTrue(tablero.hacerMovimientoMaF(mazo, fundacion));
+    }
+
+    @Test
+    public void testMazoaFundacionInvalido(){
+        Mazo mazo = new Mazo(new ArrayList<>(), new ArrayList<>());
+        List<Columna> columnas = new ArrayList<>();
+        List<Fundacion> fundaciones = new ArrayList<>();
+
+        for (int i = 0; i < 7; i++) {
+            columnas.add(i, new Columna(new ArrayList<>(), new ArrayList<>()));
+        }
+
+        for(int i=0; i<4; i++){
+            fundaciones.add(new Fundacion());
+        }
+
+        Tablero tablero = new Tablero(columnas, fundaciones, mazo);
+        Fundacion fundacion = tablero.getFundacionPorIndice(0);
+
+        Carta carta = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.AS);
+        Carta cartaDos = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DOS);
+        Carta cartaTres = new Carta(ColorCarta.ROJO, Palo.DIAMANTE, Valor.TRES);
+
+        List<Carta> cartasMazo = new ArrayList<>();
+        cartasMazo.add(cartaDos);
+        cartasMazo.add(cartaTres);
+        mazo.setCartasOcultas(cartasMazo);
+        mazo.revelarCarta();
+        fundacion.agregarCarta(carta);
+
+        assertFalse(tablero.hacerMovimientoMaF(mazo, fundacion));
+    }
+
+    @Test
+    public void testMazoaColumnaValido(){
+        Mazo mazo = new Mazo(new ArrayList<>(), new ArrayList<>());
+        List<Columna> columnas = new ArrayList<>();
+        List<Fundacion> fundaciones = new ArrayList<>();
+
+        for (int i = 0; i < 7; i++) {
+            columnas.add(i, new Columna(new ArrayList<>(), new ArrayList<>()));
+        }
+
+        for(int i=0; i<4; i++){
+            fundaciones.add(new Fundacion());
+        }
+
+        Tablero tablero = new Tablero(columnas, fundaciones, mazo);
+        Columna columna = tablero.getColumnaPorIndice(0);
+
+        Carta cartaColumna = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.CUATRO);
+        Carta cartaDos = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DOS);
+        Carta cartaTres = new Carta(ColorCarta.ROJO, Palo.DIAMANTE, Valor.TRES);
+
+        List<Carta> cartasMazo = new ArrayList<>();
+        cartasMazo.add(cartaDos);
+        cartasMazo.add(cartaTres);
+        mazo.setCartasOcultas(cartasMazo);
+        mazo.revelarCarta();
+        columna.agregarCarta(cartaColumna);
+
+        assertTrue(tablero.hacerMovimientoMaC(columna, mazo));
+    }
+
+    @Test
+    public void testMazoaColumnaInvalido(){
+        Mazo mazo = new Mazo(new ArrayList<>(), new ArrayList<>());
+        List<Columna> columnas = new ArrayList<>();
+        List<Fundacion> fundaciones = new ArrayList<>();
+
+        for (int i = 0; i < 7; i++) {
+            columnas.add(i, new Columna(new ArrayList<>(), new ArrayList<>()));
+        }
+
+        for(int i=0; i<4; i++){
+            fundaciones.add(new Fundacion());
+        }
+
+        Tablero tablero = new Tablero(columnas, fundaciones, mazo);
+        Columna columna = tablero.getColumnaPorIndice(0);
+
+        Carta cartaColumna = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.CUATRO);
+        Carta cartaDos = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DOS);
+        Carta cartaTres = new Carta(ColorCarta.ROJO, Palo.DIAMANTE, Valor.TRES);
+
+        List<Carta> cartasMazo = new ArrayList<>();
+        cartasMazo.add(cartaTres);
+        cartasMazo.add(cartaDos);
+        mazo.setCartasOcultas(cartasMazo);
+        mazo.revelarCarta();
+        columna.agregarCarta(cartaColumna);
+
+        assertFalse(tablero.hacerMovimientoMaC(columna, mazo));
     }
 }

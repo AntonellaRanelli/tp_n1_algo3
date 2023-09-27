@@ -6,22 +6,15 @@ public class Reglas {
         // Verificar si la cartaColumnaDestino es NULL
         if (cartaColumnaDestino == null) {
             // La primera carta debe ser 13
-            if (cartasAMover.isEmpty() || cartasAMover.get(0).getNumero() != Valor.K) {
-                return false;
-            }
+            return !cartasAMover.isEmpty() && cartasAMover.get(0).getNumero() == Valor.K;
         } else {
             // Verificar si el color de la cartaColumnaDestino no es igual a la primera carta de cartasAMover
-            if (!cartaColumnaDestino.getColor().equals(cartasAMover.get(0).getColor())) {
+            if (cartaColumnaDestino.getColor().equals(cartasAMover.get(0).getColor())) {
                 return false;
             }
-
-            // Verificar si el número de la cartaColumnaDestino es menor por 1
-            if (cartaColumnaDestino.getNumero().ordinal() != cartasAMover.get(0).getNumero().ordinal() - 1) {
-                return false;
-            }
-        }
-
-        return true; // Movimiento válido
+            // Verificar si el número de la cartaColumnaDestino es mayor por 1
+            return cartaColumnaDestino.getNumero().ordinal() - cartasAMover.get(0).getNumero().ordinal() == 1;
+        }// Movimiento válido
     }
 
     public static boolean validarMovimientoAFundacion(Carta cartaColumna, Carta cartaAIngresar)
