@@ -196,24 +196,4 @@ public class Tablero {
         return false;
     }
 
-    public void mostrarEstadoColumnas() {
-        for (int i = 0; i < columnas.size(); i++) {
-            Columna columna = columnas.get(i);
-            List<Carta> cartasReveladas = columna.getCartasReveladas();
-            List<Carta> cartasOcultas = columna.getCartasOcultas();
-
-            System.out.println("Columna " + i + ":");
-            System.out.println("Cartas Reveladas:");
-            for (Carta carta : cartasReveladas) {
-                System.out.println(carta.getPalo() + " " + carta.getNumero());
-            }
-
-            System.out.println("Cartas Ocultas:");
-            for (Carta carta : cartasOcultas) {
-                System.out.println(carta.getPalo() + " " + carta.getNumero());
-            }
-        }
-
-    }
-
 }

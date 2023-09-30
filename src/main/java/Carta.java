@@ -21,7 +21,4 @@ public class Carta {
         return numero;
     }
 
-    public String toString() {
-        return numero + " " + palo + " " + color;
-    }
 }

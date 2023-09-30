@@ -48,7 +48,4 @@ public class Fundacion {
         return cartas.isEmpty();
     }
 
-    public String toString(){
-        return " " + cartas;
-    }
 }
