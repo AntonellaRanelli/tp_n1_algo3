@@ -57,7 +57,4 @@ public class Columna {
         cartasReveladas.removeAll(cartasASacar);
     }
 
-    public String toString(){
-        return " " + cartasOcultas + cartasReveladas;
-    }
 }
