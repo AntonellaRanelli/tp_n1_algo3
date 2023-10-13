@@ -17,27 +17,27 @@ public class Fundacion {
         return cartas;
     }
 
-    public void setCartas(List<Carta> cartas) {
+    public void setCartas(List<Carta> cartas) { //Se deberia borrar, no lo borré por los tests issue 2
         this.cartas = cartas;
     }
 
     public Carta obtenerUltimaCarta() {// Devuelve la ultima carta de la fundacion , o sea la carta visible
-        if (!cartas.isEmpty()) {
+        if (!mazoVacio()) { //Uso del metodo mazoVacio() issue 3
             int lastIndex = cartas.size() - 1;
             return cartas.get(lastIndex);
         }
         return null; // Si la lista está vacía, devuelve null
     }
 
-    public void agregarCarta(Carta carta) {
-        if (cartas.isEmpty() && (carta.getNumero() == Valor.AS))
+    public void agregarCarta(Carta carta) { // En Fundacion solo necesita que se agregue una sola carta a la vez
+        if (mazoVacio() && (carta.getNumero() == Valor.AS)) //Uso del metodo mazoVacio() issue 3
             palo = carta.getPalo();
 
         cartas.add(carta);
     }
 
     public void eliminarUltimaCarta(){
-        if (!cartas.isEmpty()) {
+        if (!mazoVacio()) { //Uso del metodo mazoVacio() issue 3
             int lastIndex = cartas.size() - 1;
             cartas.remove(lastIndex);
         }

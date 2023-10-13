@@ -1,8 +1,6 @@
 import org.junit.Test;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -34,7 +32,7 @@ public class TableroTest {
         columna.agregarCartas(listadoCarta);
 
 
-        assertTrue(tablero.hacerMovimientoCaF(columna, fundacion));
+        assertTrue(tablero.moverColumnaAFundacion(columna, fundacion));
     }
 
     @Test
@@ -63,7 +61,7 @@ public class TableroTest {
         columna.agregarCartas(listadoCarta);
 
 
-        assertFalse(tablero.hacerMovimientoCaF(columna, fundacion));
+        assertFalse(tablero.moverColumnaAFundacion(columna, fundacion));
     }
 
     @Test
@@ -90,7 +88,7 @@ public class TableroTest {
         Carta carta = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.AS);
         listadoCarta.add(carta);
         columna.agregarCartas(listadoCarta);
-        tablero.hacerMovimientoCaF(columna, fundacion);
+        tablero.moverColumnaAFundacion(columna, fundacion);
 
         Palo esperado = Palo.PICAS;
         Palo resultado = fundacion.getPalo();
@@ -121,7 +119,7 @@ public class TableroTest {
         columna.agregarCartas(listadoCarta);
 
 
-        assertFalse(tablero.hacerMovimientoCaF(columna, fundacion));
+        assertFalse(tablero.moverColumnaAFundacion(columna, fundacion));
     }
 
     @Test
@@ -149,7 +147,7 @@ public class TableroTest {
         listadoCarta.add(carta);
         columna.agregarCartas(listadoCarta);
 
-        tablero.hacerMovimientoCaF(columna, fundacion);
+        tablero.moverColumnaAFundacion(columna, fundacion);
 
 
         assertFalse(Reglas.verificarJuegoGanado(fundaciones));
@@ -194,7 +192,7 @@ public class TableroTest {
         fundacion.eliminarUltimaCarta();
         columna.agregarCartas(listadoCarta);
 
-        tablero.hacerMovimientoCaF(columna, fundacion);
+        tablero.moverColumnaAFundacion(columna, fundacion);
 
 
         assertTrue(Reglas.verificarJuegoGanado(fundaciones));
@@ -270,9 +268,9 @@ public class TableroTest {
         listadoCarta.add(carta);
         columna.agregarCartas(listadoCarta);
 
-        tablero.hacerMovimientoCaF(columna, fundacion);
+        tablero.moverColumnaAFundacion(columna, fundacion);
 
-        assertTrue(tablero.hacerMovimientoCaF(columna, fundacion));
+        assertTrue(tablero.moverColumnaAFundacion(columna, fundacion));
     }
 
     @Test
@@ -300,9 +298,9 @@ public class TableroTest {
         listadoCarta.add(carta);
         columna.agregarCartas(listadoCarta);
 
-        tablero.hacerMovimientoCaF(columna, fundacion);
+        tablero.moverColumnaAFundacion(columna, fundacion);
 
-        assertFalse(tablero.hacerMovimientoCaF(columna, fundacion));
+        assertFalse(tablero.moverColumnaAFundacion(columna, fundacion));
     }
 
     @Test
@@ -326,7 +324,7 @@ public class TableroTest {
         Carta carta = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.AS);
         fundacion.agregarCarta(carta);
 
-        assertFalse(tablero.hacerMovimientoFaC(columna, fundacion));
+        assertFalse(tablero.moverFundacionAColumna(fundacion, columna));
     }
 
     @Test
@@ -353,10 +351,10 @@ public class TableroTest {
 
         fundacion.agregarCarta(carta);
         fundacion.agregarCarta(cartaDos);
-        columna.agregarCarta(cartaTres);
+        columna.agregarCartas(cartaTres);
 
 
-        assertTrue(tablero.hacerMovimientoFaC(columna, fundacion));
+        assertTrue(tablero.moverFundacionAColumna(fundacion, columna));
     }
 
     @Test
@@ -381,12 +379,12 @@ public class TableroTest {
         Carta cartaDos = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DOS);
         Carta cartaTres = new Carta(ColorCarta.ROJO, Palo.DIAMANTE, Valor.TRES);
 
-        columna1.agregarCarta(cartaDos);
+        columna1.agregarCartas(cartaDos);
         List<Carta> cartasAMover = new ArrayList<>();
         cartasAMover.add(cartaDos);
-        columna.agregarCarta(cartaTres);
+        columna.agregarCartas(cartaTres);
 
-        assertTrue(tablero.hacerMovimientoCaC(columna1, columna, cartasAMover));
+        assertTrue(tablero.moverColumnaAColumna(columna1, columna, cartasAMover));
     }
 
     @Test
@@ -410,11 +408,11 @@ public class TableroTest {
 
         Carta cartaK = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.K);
 
-        columna1.agregarCarta(cartaK);
+        columna1.agregarCartas(cartaK);
         List<Carta> cartasAMover = new ArrayList<>();
         cartasAMover.add(cartaK);
 
-        assertTrue(tablero.hacerMovimientoCaC(columna1, columna, cartasAMover));
+        assertTrue(tablero.moverColumnaAColumna(columna1, columna, cartasAMover));
     }
 
     @Test
@@ -439,12 +437,12 @@ public class TableroTest {
         Carta cartaDos = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DOS);
         Carta cartaTres = new Carta(ColorCarta.ROJO, Palo.DIAMANTE, Valor.TRES);
 
-        columna1.agregarCarta(cartaDos);
+        columna1.agregarCartas(cartaDos);
         List<Carta> cartasAMover = new ArrayList<>();
         cartasAMover.add(cartaTres);
-        columna.agregarCarta(cartaTres);
+        columna.agregarCartas(cartaTres);
 
-        assertFalse(tablero.hacerMovimientoCaC(columna, columna1, cartasAMover));
+        assertFalse(tablero.moverColumnaAColumna(columna, columna1, cartasAMover));
     }
 
     @Test
@@ -468,11 +466,11 @@ public class TableroTest {
 
         Carta cartaTres = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.TRES);
 
-        columna1.agregarCarta(cartaTres);
+        columna1.agregarCartas(cartaTres);
         List<Carta> cartasAMover = new ArrayList<>();
         cartasAMover.add(cartaTres);
 
-        assertFalse(tablero.hacerMovimientoCaC(columna1, columna, cartasAMover));
+        assertFalse(tablero.moverColumnaAColumna(columna1, columna, cartasAMover));
     }
 
     @Test
@@ -503,7 +501,7 @@ public class TableroTest {
         mazo.revelarCarta();
         fundacion.agregarCarta(carta);
 
-        assertTrue(tablero.hacerMovimientoMaF(mazo, fundacion));
+        assertTrue(tablero.moverMazoAFundacion(mazo, fundacion));
     }
 
     @Test
@@ -534,7 +532,7 @@ public class TableroTest {
         mazo.revelarCarta();
         fundacion.agregarCarta(carta);
 
-        assertFalse(tablero.hacerMovimientoMaF(mazo, fundacion));
+        assertFalse(tablero.moverMazoAFundacion(mazo, fundacion));
     }
 
     @Test
@@ -563,9 +561,9 @@ public class TableroTest {
         cartasMazo.add(cartaTres);
         mazo.setCartasOcultas(cartasMazo);
         mazo.revelarCarta();
-        columna.agregarCarta(cartaColumna);
+        columna.agregarCartas(cartaColumna);
 
-        assertTrue(tablero.hacerMovimientoMaC(columna, mazo));
+        assertTrue(tablero.moverMazoAColumna(mazo, columna));
     }
 
     @Test
@@ -594,8 +592,8 @@ public class TableroTest {
         cartasMazo.add(cartaDos);
         mazo.setCartasOcultas(cartasMazo);
         mazo.revelarCarta();
-        columna.agregarCarta(cartaColumna);
+        columna.agregarCartas(cartaColumna);
 
-        assertFalse(tablero.hacerMovimientoMaC(columna, mazo));
+        assertFalse(tablero.moverMazoAColumna(mazo, columna));
     }
 }

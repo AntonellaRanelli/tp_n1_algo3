@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 
 public class Columna {
@@ -11,28 +10,17 @@ public class Columna {
         this.cartasOcultas = cartasOcultas;
     }
 
-    public List<Carta> sacarCarta(int indice) { // Selecciona la lista de cartas que el usuario desea mover y la deevuelve y revela la ultima carta Oculta
-
-        List<Carta> cartasElegidas = new ArrayList<>(cartasReveladas.subList(indice,-1));
-
-        cartasReveladas.removeAll(cartasElegidas);
-
-        if (!cartasOcultas.isEmpty())
-        {
-            Carta cartaSacada = cartasOcultas.remove(0); // Obtener la primera carta de la lista
-            cartasReveladas.add(cartaSacada);
-        }
-        return cartasElegidas;
-    }
 
     public void agregarCartas(List<Carta> listaDeCartas) {
         cartasReveladas.addAll(listaDeCartas);
     } //recibe una lista de cartas y la agrega al final del la lista de cartas reveladas
 
-    public void agregarCarta(Carta carta){
+
+
+    public void agregarCartas(Carta carta)//Agrego una funcion con sobrecarga
+    {
         cartasReveladas.add(carta);
     }
-
     public List<Carta> getCartasReveladas() { // Devuelve lista
         return cartasReveladas;
     }
@@ -56,5 +44,6 @@ public class Columna {
     public void sacarCartas(List<Carta> cartasASacar) {
         cartasReveladas.removeAll(cartasASacar);
     }
+
 
 }
