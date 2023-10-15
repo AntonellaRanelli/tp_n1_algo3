@@ -21,7 +21,7 @@ public class Tablero {
         this.mazo = mazo;
     }
 
-    public void iniciarJuego() { // iniciador de juego con semilla aleatoria; semilla tipo long
+    private void iniciarJuego() { // iniciador de juego con semilla aleatoria; semilla tipo long
         Random random = new Random();
         baraja = crearCartas();
         crearColumnas();
@@ -79,17 +79,18 @@ public class Tablero {
             for (int i = 0; i < cartasPorColumna - 1; i++) {
                 if (!baraja.isEmpty()) {
                     Carta cartaOculta = baraja.remove(0);
-                    columna.setCartasOcultas(cartaOculta);
+                    listaAuxiliar.add(cartaOculta);
                 }
+                columna.setCartasOcultas(listaAuxiliar);
             }
 
             // Asignar una carta revelada
             if (!baraja.isEmpty()) {
                 Carta cartaRevelada = baraja.remove(0);
-                columna.agregarCartas(cartaRevelada);
+                columna.agregarCarta(cartaRevelada);
             }
 
-
+            listaAuxiliar.clear();
             cartasPorColumna++;
         }
 
@@ -109,7 +110,9 @@ public class Tablero {
         return fundaciones.get(indice);
     }
 
-
+    public Mazo getMazo(){
+        return mazo;
+    }
 
     public boolean moverColumnaAFundacion(Columna columna, Fundacion fundacion)
     {
@@ -155,7 +158,7 @@ public class Tablero {
 
         if (Reglas.validarMovimientoAColumna(ultimaCartaColumna, ultimaCartaFundacion)){
             fundacion.eliminarUltimaCarta();
-            columna.agregarCartas(ultimaCartaFundacion);
+            columna.agregarCarta(ultimaCartaFundacion);
 
             return true;
         }
@@ -167,7 +170,7 @@ public class Tablero {
         Carta ultimaCartaColumna = columna.obtenerUltimaCartaRevelada();
 
         if (Reglas.validarMovimientoAColumna(ultimaCartaColumna, ultimaCartaMazo)){
-            columna.agregarCartas(ultimaCartaMazo);
+            columna.agregarCarta(ultimaCartaMazo);
             mazo.entregarCarta();
             return true;
         }
@@ -180,7 +183,7 @@ public class Tablero {
 
         if(Reglas.validarMovimientoEntreColumnas(cartasAMover, ultimaCartaRCD))
         {
-            columnaDestino.agregarCartas(columnaDestino.getCartasReveladas());
+            columnaDestino.agregarCarta(columnaDestino.getCartasReveladas());
             columnaOrigen.sacarCartas(cartasAMover);
             return true;
         }

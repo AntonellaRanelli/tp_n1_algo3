@@ -22,7 +22,7 @@ public class Fundacion {
     }
 
     public Carta obtenerUltimaCarta() {// Devuelve la ultima carta de la fundacion , o sea la carta visible
-        if (!mazoVacio()) { //Uso del metodo mazoVacio() issue 3
+        if (!fundacionVacia()) { //Uso del metodo mazoVacio() issue 3
             int lastIndex = cartas.size() - 1;
             return cartas.get(lastIndex);
         }
@@ -30,20 +30,20 @@ public class Fundacion {
     }
 
     public void agregarCarta(Carta carta) { // En Fundacion solo necesita que se agregue una sola carta a la vez
-        if (mazoVacio() && (carta.getNumero() == Valor.AS)) //Uso del metodo mazoVacio() issue 3
+        if (fundacionVacia() && (carta.getNumero() == Valor.AS)) //Uso del metodo mazoVacio() issue 3
             palo = carta.getPalo();
 
         cartas.add(carta);
     }
 
     public void eliminarUltimaCarta(){
-        if (!mazoVacio()) { //Uso del metodo mazoVacio() issue 3
+        if (!fundacionVacia()) { //Uso del metodo mazoVacio() issue 3
             int lastIndex = cartas.size() - 1;
             cartas.remove(lastIndex);
         }
     }
 
-    public boolean mazoVacio()
+    public boolean fundacionVacia()
     {
         return cartas.isEmpty();
     }

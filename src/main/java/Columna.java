@@ -1,23 +1,16 @@
 import java.util.List;
 
-public class Columna {
+public class Columna extends CartasApilable{
 
-    private List<Carta> cartasReveladas;
-    private List<Carta> cartasOcultas;
-
-    public Columna(List<Carta> cartasReveladas, List<Carta> cartasOcultas) { //Constructor
-        this.cartasReveladas = cartasReveladas;
-        this.cartasOcultas = cartasOcultas;
+    public Columna(List<Carta> cartasReveladas, List<Carta> cartasOcultas) {
+        super(cartasReveladas, cartasOcultas); //Constructor
     }
 
-
-    public void agregarCartas(List<Carta> listaDeCartas) {
+    public void agregarCarta(List<Carta> listaDeCartas) {
         cartasReveladas.addAll(listaDeCartas);
     } //recibe una lista de cartas y la agrega al final del la lista de cartas reveladas
 
-
-
-    public void agregarCartas(Carta carta)//Agrego una funcion con sobrecarga
+    public void agregarCarta(Carta carta)//Agrego una funcion con sobrecarga
     {
         cartasReveladas.add(carta);
     }
@@ -25,25 +18,12 @@ public class Columna {
         return cartasReveladas;
     }
 
-    public void setCartasOcultas(Carta carta){
-        cartasOcultas.add(carta);
-    }
-
     public List<Carta> getCartasOcultas() { //Devuelve Lista
         return cartasOcultas;
     }
 
-    public Carta obtenerUltimaCartaRevelada() { //devuelve la ultima carta de la lista reveladas
-        if (!cartasReveladas.isEmpty()) {
-            int lastIndex = cartasReveladas.size() - 1;
-            return cartasReveladas.get(lastIndex);
-        }
-        return null; // Si no hay cartas reveladas
-    }
-
     public void sacarCartas(List<Carta> cartasASacar) {
         cartasReveladas.removeAll(cartasASacar);
+        this.revelarCarta();
     }
-
-
 }

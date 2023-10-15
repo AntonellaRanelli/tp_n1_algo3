@@ -1,20 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Mazo {
-    private List<Carta> cartasOcultas;
+public class Mazo extends CartasApilable{
 
-    private List<Carta> cartasReveladas;
-
-    public Mazo(List<Carta> cartasOcultas, List<Carta> cartasReveladas) { // Constructor
-        this.cartasOcultas = cartasOcultas;
-        this.cartasReveladas = cartasReveladas;
+    public Mazo(List<Carta> cartasReveladas, List<Carta> cartasOcultas) { // Constructor
+        super(cartasReveladas, cartasOcultas);
     }
 
-    public void setCartasOcultas(List<Carta> cartasOcultas) {
-        this.cartasOcultas = cartasOcultas;
-    }
-
+    @Override
     public Carta revelarCarta() { // Si cartasOcutas no esta vacio, saca la ultima carta oculta y la agrega a lista de cartas reveladas
         if (!cartasOcultas.isEmpty()) {
             int lastIndex = cartasOcultas.size() - 1;
@@ -33,14 +26,6 @@ public class Mazo {
             return cartasReveladas.remove(lastIndex);
         }
         return null; // Si no hay cartas reveladas devuelve null
-    }
-
-    public Carta obtenerUltimaCartaRevelada() {
-        if (!cartasReveladas.isEmpty()) {
-            int lastIndex = cartasReveladas.size() - 1;
-            return cartasReveladas.get(lastIndex);
-        }
-        return null; // Si no hay cartas reveladas
     }
 
     public void resetearMazo() { //Vacia la lista de cartasReveladas y las agrega a cartas ocultas

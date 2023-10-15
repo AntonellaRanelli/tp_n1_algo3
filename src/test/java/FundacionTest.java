@@ -48,6 +48,6 @@ public class FundacionTest {
         Fundacion fundacion = new Fundacion();
         fundacion.setCartas(new ArrayList<Carta>());
 
-        assertTrue(fundacion.mazoVacio());
+        assertTrue(fundacion.fundacionVacia());
     }
 }
