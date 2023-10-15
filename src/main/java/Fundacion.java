@@ -17,10 +17,6 @@ public class Fundacion {
         return cartas;
     }
 
-    public void setCartas(List<Carta> cartas) { //Se deberia borrar, no lo borré por los tests issue 2
-        this.cartas = cartas;
-    }
-
     public Carta obtenerUltimaCarta() {// Devuelve la ultima carta de la fundacion , o sea la carta visible
         if (!fundacionVacia()) { //Uso del metodo mazoVacio() issue 3
             int lastIndex = cartas.size() - 1;
