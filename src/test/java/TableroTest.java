@@ -6,29 +6,10 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class TableroTest {
-    public static Tablero tableroInicial(){
-        //Crea un tablero vacio para poder setearlo en las distintas pruebas.
-        Mazo mazo = new Mazo(new ArrayList<>(), new ArrayList<>());
-        List<Columna> columnas = new ArrayList<>();
-        List<Fundacion> fundaciones = new ArrayList<>();
-
-        for (int i = 0; i < 7; i++) {
-            columnas.add(i, new Columna(new ArrayList<>(), new ArrayList<>()));
-        }
-
-        for(int i=0; i<4; i++){
-            fundaciones.add(new Fundacion());
-        }
-
-        Tablero tablero = new Tablero(columnas, fundaciones, mazo);
-
-        return tablero;
-    }
-
     @Test
     public void testMovimientoAfundacionValido() {
         //Verifico que si una fundacion esta vacia, puedo ingresar una AS.
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         Carta carta = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.AS);
         List<Carta> listadoCarta = new ArrayList<>();
         Columna columnaAuxiliar = tablero.getColumnaPorIndice(0);
@@ -43,7 +24,7 @@ public class TableroTest {
     @Test
     public void testMovimientoAfundacionInvalido() {
         //Verifico que si una fundacion esta vacia, no puedo ingresar una carta distinta a un AS.
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         Carta carta = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DIEZ);
         List<Carta> listadoCarta = new ArrayList<>();
         Columna columna = tablero.getColumnaPorIndice(0);
@@ -58,7 +39,7 @@ public class TableroTest {
     @Test
     public void testPaloMovimientoAfundacion() {
         //Verifico que despues de ingresar un AS en una fundacion vacia, el palo es el correcto.
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         Carta carta = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.AS);
         List<Carta> listadoCarta = new ArrayList<>();
         Columna columna = tablero.getColumnaPorIndice(0);
@@ -75,7 +56,7 @@ public class TableroTest {
     @Test
     public void testMovimientoAFundacionColumnaVacia() {
         //Intentar mover de una columna vacia devuelve error.
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         Columna columna = tablero.getColumnaPorIndice(0);
         Fundacion fundacion = tablero.getFundacionPorIndice(0);
         List<Carta> listadoCarta = new ArrayList<>();
@@ -88,7 +69,7 @@ public class TableroTest {
     @Test
     public void testJuegoGanadoInvalido() {
         //Verifico que si no estan dadas las condiciones, juego ganado devuelve false.
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         List<Fundacion> fundaciones = new ArrayList<>();
         for(int i=0; i<4; i++){
             fundaciones.add(tablero.getFundacionPorIndice(i));
@@ -108,7 +89,7 @@ public class TableroTest {
     @Test
     public void testJuegoGanadoValido() {
         //Inicio el juego con todas las cartas en las fundaciones y verifico que esta ganado.
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         List<Fundacion> fundaciones = new ArrayList<>();
         for(int i=0; i<4; i++){
             fundaciones.add(tablero.getFundacionPorIndice(i));
@@ -134,7 +115,7 @@ public class TableroTest {
     public void testJuegoGanadoInValidoConUnaCarta() {
         //Inicio el juego con todas las cartas en las fundaciones excepto una.
         //Verifico que el juego aun no esta ganado.
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         List<Fundacion> fundaciones = new ArrayList<>();
         for(int i=0; i<4; i++){
             fundaciones.add(tablero.getFundacionPorIndice(i));
@@ -161,7 +142,7 @@ public class TableroTest {
 
     @Test
     public void testCartaValidaAFundacion(){
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         Columna columna = tablero.getColumnaPorIndice(0);
         Fundacion fundacion = tablero.getFundacionPorIndice(0);
         List<Carta> listadoCarta = new ArrayList<>();
@@ -178,7 +159,7 @@ public class TableroTest {
 
     @Test
     public void testCartaInValidaAFundacion(){
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         Columna columna = tablero.getColumnaPorIndice(0);
         Fundacion fundacion = tablero.getFundacionPorIndice(0);
         List<Carta> listadoCarta = new ArrayList<>();
@@ -195,7 +176,7 @@ public class TableroTest {
 
     @Test
     public void testFundacionAColumnaInvalido(){
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         Columna columna = tablero.getColumnaPorIndice(0);
         Fundacion fundacion = tablero.getFundacionPorIndice(0);
         Carta carta = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.AS);
@@ -207,7 +188,7 @@ public class TableroTest {
 
     @Test
     public void testFundacionAColumnaValido(){
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         Columna columna = tablero.getColumnaPorIndice(0);
         Fundacion fundacion = tablero.getFundacionPorIndice(0);
         Carta carta = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.AS);
@@ -224,7 +205,7 @@ public class TableroTest {
     @Test
     public void testColumnaAColumnaValido(){
 
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         Columna columna = tablero.getColumnaPorIndice(0);
         Columna columna1 = tablero.getColumnaPorIndice(1);
         Carta cartaDos = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DOS);
@@ -241,7 +222,7 @@ public class TableroTest {
     @Test
     public void testColumnaAColumnaVaciaValido(){
 
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         Columna columna = tablero.getColumnaPorIndice(0);
         Columna columna1 = tablero.getColumnaPorIndice(1);
         Carta cartaK = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.K);
@@ -256,7 +237,7 @@ public class TableroTest {
     @Test
     public void testColumnaAColumnaInvalido(){
 
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         Columna columna = tablero.getColumnaPorIndice(0);
         Columna columna1 = tablero.getColumnaPorIndice(1);
         Carta cartaDos = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DOS);
@@ -273,7 +254,7 @@ public class TableroTest {
     @Test
     public void testColumnaAColumnaVaciaInvalido(){
 
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         Columna columna = tablero.getColumnaPorIndice(0);
         Columna columna1 = tablero.getColumnaPorIndice(1);
         Carta cartaTres = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.TRES);
@@ -287,7 +268,7 @@ public class TableroTest {
 
     @Test
     public void testMazoaFundacionValido(){
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         List<Fundacion> fundaciones = new ArrayList<>();
         for(int i=0; i<4; i++){
             fundaciones.add(tablero.getFundacionPorIndice(i));
@@ -310,7 +291,7 @@ public class TableroTest {
 
     @Test
     public void testMazoaFundacionInvalido(){
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         List<Fundacion> fundaciones = new ArrayList<>();
         for(int i=0; i<4; i++){
             fundaciones.add(tablero.getFundacionPorIndice(i));
@@ -333,7 +314,7 @@ public class TableroTest {
 
     @Test
     public void testMazoaColumnaValido(){
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         Mazo mazo = tablero.getMazo();
         Columna columna = tablero.getColumnaPorIndice(0);
         Carta cartaColumna = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.CUATRO);
@@ -352,7 +333,7 @@ public class TableroTest {
 
     @Test
     public void testMazoaColumnaInvalido(){
-        Tablero tablero = tableroInicial();
+        Tablero tablero = Tablero.crearJuegoVacioParaTest();
         Mazo mazo = tablero.getMazo();
         Columna columna = tablero.getColumnaPorIndice(0);
         Carta cartaColumna = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.CUATRO);

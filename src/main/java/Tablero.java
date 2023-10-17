@@ -24,8 +24,8 @@ public class Tablero {
     private void iniciarJuego() { // iniciador de juego con semilla aleatoria; semilla tipo long
         Random random = new Random();
         baraja = crearCartas();
-        crearColumnas();
-        crearFundaciones();
+        columnas = crearColumnas();
+        fundaciones = crearFundaciones();
         Collections.shuffle(baraja, random);
         repartirCartas();
     }
@@ -49,20 +49,24 @@ public class Tablero {
         return cartas;
     }
 
-    private void crearColumnas()
+    private static List<Columna> crearColumnas()
     {
+        List<Columna> columnasAuxiliar = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
             Columna columna = new Columna(new ArrayList<>(), new ArrayList<>());
-            columnas.add(columna);
+            columnasAuxiliar.add(columna);
         }
+        return columnasAuxiliar;
     }
 
-    private void crearFundaciones()
+    private static List<Fundacion> crearFundaciones()
     {
+        List<Fundacion> fundacionesAuxiliar = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             Fundacion fundacion = new Fundacion();
-            fundaciones.add(fundacion);
+            fundacionesAuxiliar.add(fundacion);
         }
+        return fundacionesAuxiliar;
     }
 
     private void repartirCartas() { //reparte las carta entre las columnas el resto va al mazo
@@ -98,6 +102,11 @@ public class Tablero {
         mazo.setCartasOcultas(new ArrayList<>(baraja));
     }
 
+    public static Tablero crearJuegoVacioParaTest(){
+        Mazo mazoAuxiliar = new Mazo(new ArrayList<>(), new ArrayList<>());
+        Tablero tablero = new Tablero(crearColumnas(), crearFundaciones(), mazoAuxiliar);
+        return tablero;
+    }
 
 
     public Columna getColumnaPorIndice(int indice){
