@@ -10,7 +10,6 @@ public class FundacionTest {
     public void paloCorrecto() {
         Carta cartaAuxiliar = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.AS);
         Fundacion fundacion = new Fundacion();
-        fundacion.setCartas(new ArrayList<Carta>());
         fundacion.agregarCarta(cartaAuxiliar);
 
         Palo esperado = Palo.PICAS;
@@ -22,7 +21,6 @@ public class FundacionTest {
     public void paloNoSeteado() {
         Carta cartaAuxiliar = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DOS);
         Fundacion fundacion = new Fundacion();
-        fundacion.setCartas(new ArrayList<Carta>());
         fundacion.agregarCarta(cartaAuxiliar);
 
         assertNull(fundacion.getPalo());
@@ -34,7 +32,6 @@ public class FundacionTest {
         Carta cartaAuxiliarDos = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DIEZ);
         Carta cartaAuxiliarTres = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.Q);
         Fundacion fundacion = new Fundacion();
-        fundacion.setCartas(new ArrayList<Carta>());
 
         fundacion.agregarCarta(cartaAuxiliar);
         fundacion.agregarCarta(cartaAuxiliarDos);
@@ -46,8 +43,7 @@ public class FundacionTest {
     @Test
     public void cartasVacio(){
         Fundacion fundacion = new Fundacion();
-        fundacion.setCartas(new ArrayList<Carta>());
 
-        assertTrue(fundacion.mazoVacio());
+        assertTrue(fundacion.fundacionVacia());
     }
 }

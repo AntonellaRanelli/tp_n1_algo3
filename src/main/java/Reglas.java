@@ -17,37 +17,23 @@ public class Reglas {
         }// Movimiento válido
     }
 
-    public static boolean validarMovimientoAFundacion(Carta cartaColumna, Carta cartaAIngresar)
-    {
-        if (cartaAIngresar == null && (cartaColumna.getNumero() == Valor.AS)) {
+    public static boolean validarMovimientoAFundacion(Carta cartaColumna, Carta cartaAIngresar) {//se arregla el incumplimiento de DRY
+        if (cartaAIngresar == null && cartaColumna.getNumero() == Valor.AS) {
             return true;
         }
 
-        if (cartaAIngresar != null){
-            if (cartaColumna.getPalo() == cartaAIngresar.getPalo()) {
-                if (cartaColumna.getNumero().ordinal() == cartaAIngresar.getNumero().ordinal() + 1) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return cartaAIngresar != null &&
+                cartaColumna.getPalo() == cartaAIngresar.getPalo() &&
+                cartaColumna.getNumero().ordinal() == cartaAIngresar.getNumero().ordinal() + 1;
     }
 
-    public static boolean validarMovimientoAColumna(Carta cartaColumna, Carta cartaAIngresar){
 
-        if (cartaColumna == null || cartaAIngresar == null)
+    public static boolean validarMovimientoAColumna(Carta cartaColumna, Carta cartaAIngresar) {//se arregla el incumplimiento de DRY
+        if (cartaColumna == null || cartaAIngresar == null || cartaColumna.getColor() == cartaAIngresar.getColor()) {
             return false;
+        }
 
-        if(cartaColumna.getColor() == cartaAIngresar.getColor())
-            return false;
-
-        Valor numeroCartaColumna = cartaColumna.getNumero();
-        Valor numeroCartaFundacion = cartaAIngresar.getNumero();
-
-        if (numeroCartaFundacion.ordinal() + 1 == numeroCartaColumna.ordinal())
-            return true;
-
-        return false;
+        return cartaAIngresar.getNumero().ordinal() + 1 == cartaColumna.getNumero().ordinal();
     }
 
     public static boolean verificarJuegoGanado(List<Fundacion> fundaciones) {
@@ -59,6 +45,14 @@ public class Reglas {
             }
         }
         return true; // Todas las fundaciones tienen 13 cartas, el juego está ganado
+    }
+
+    public  static boolean validarExistenciaCarta(Carta carta)
+    {
+        if (carta == null){
+            return false;
+        }
+        return true;
     }
 
 }
