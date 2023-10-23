@@ -17,14 +17,14 @@ public class EstadoJuego {
     }
 
     public Tablero buscarPartidaGuardada() throws IOException, ClassNotFoundException {
-        TableroKlondike tablero;
+        Tablero tablero;
         ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(directorioDatos));
-        tablero = (TableroKlondike) entrada.readObject();
+        tablero = (Tablero) entrada.readObject();
         entrada.close();
         return tablero;
     }
 
-    public void guardarPartida(TableroKlondike tablero) throws IOException {
+    public void guardarPartida(Tablero tablero) throws IOException {
         ObjectOutputStream datoAGuardar = new ObjectOutputStream(new FileOutputStream(directorioDatos));
         datoAGuardar.writeObject(tablero);
         datoAGuardar.close();
