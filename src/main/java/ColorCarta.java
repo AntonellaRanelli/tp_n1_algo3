@@ -1,4 +1,6 @@
-public enum ColorCarta {
+import java.io.Serializable;
+
+public enum ColorCarta implements Serializable {
     ROJO,
     NEGRO;
 }

@@ -1,4 +1,6 @@
-public enum Valor {
+import java.io.Serializable;
+
+public enum Valor implements Serializable {
     AS,
     DOS,
     TRES,

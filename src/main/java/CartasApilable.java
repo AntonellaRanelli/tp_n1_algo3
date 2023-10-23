@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.List;
 
-public class CartasApilable {
+public class CartasApilable implements Serializable {
     protected List<Carta> cartasReveladas;
     protected List<Carta> cartasOcultas;
 

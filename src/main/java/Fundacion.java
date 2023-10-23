@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fundacion {
+public class Fundacion implements Serializable {
     private Palo palo;
     private List<Carta> cartas;
 

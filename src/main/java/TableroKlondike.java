@@ -3,25 +3,25 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class Tablero {
+public class TableroKlondike extends Tablero {
     private List<Carta> baraja = new ArrayList<>();
     private List<Columna> columnas = new ArrayList<>();
     private List<Fundacion> fundaciones = new ArrayList<>();
     private Mazo mazo = new Mazo( new ArrayList<>(), new ArrayList<>());
 
-    public Tablero() { //Constructor
-
+    public TableroKlondike() { //Constructor
         iniciarJuego();
     }
 
-    public Tablero(List<Columna> columnas, List<Fundacion> fundaciones, Mazo mazo)
+    public TableroKlondike(List<Columna> columnas, List<Fundacion> fundaciones, Mazo mazo)
     {
         this.columnas = columnas;
         this.fundaciones = fundaciones;
         this.mazo = mazo;
     }
 
-    private void iniciarJuego() { // iniciador de juego con semilla aleatoria; semilla tipo long
+    @Override
+    protected void iniciarJuego() { // iniciador de juego con semilla aleatoria; semilla tipo long
         Random random = new Random();
         baraja = crearCartas();
         columnas = crearColumnas();
@@ -30,7 +30,8 @@ public class Tablero {
         repartirCartas();
     }
 
-    private List<Carta> crearCartas()
+    @Override
+    protected List<Carta> crearCartas()
     {
         List<Carta> cartas = new ArrayList<>();
 
@@ -69,7 +70,8 @@ public class Tablero {
         return fundacionesAuxiliar;
     }
 
-    private void repartirCartas() { //reparte las carta entre las columnas el resto va al mazo
+    @Override
+    protected void repartirCartas() { //reparte las carta entre las columnas el resto va al mazo
         int cartasPorColumna = 1;
         List<Carta> listaAuxiliar = new ArrayList<>();
 
@@ -104,25 +106,26 @@ public class Tablero {
 
     public static Tablero crearJuegoVacioParaTest(){
         Mazo mazoAuxiliar = new Mazo(new ArrayList<>(), new ArrayList<>());
-        Tablero tablero = new Tablero(crearColumnas(), crearFundaciones(), mazoAuxiliar);
+        Tablero tablero = new TableroKlondike(crearColumnas(), crearFundaciones(), mazoAuxiliar);
         return tablero;
     }
 
-
+    @Override
     public Columna getColumnaPorIndice(int indice){
         return columnas.get(indice);
     }
 
-
-
+    @Override
     public Fundacion getFundacionPorIndice(int indice){
         return fundaciones.get(indice);
     }
 
+    @Override
     public Mazo getMazo(){
         return mazo;
     }
 
+    @Override
     public boolean moverColumnaAFundacion(Columna columna, Fundacion fundacion)
     {
         Carta cartaAuxiliar = columna.obtenerUltimaCartaRevelada();
@@ -143,6 +146,7 @@ public class Tablero {
         return false;
     }
 
+    @Override
     public boolean moverMazoAFundacion(Mazo mazo, Fundacion fundacion){
         Carta cartaAuxiliar = mazo.obtenerUltimaCartaRevelada();
 
@@ -159,6 +163,7 @@ public class Tablero {
         return false;
     }
 
+    @Override
     //arreglo issue 1
     public  boolean moverFundacionAColumna(Fundacion fundacion, Columna columna)
     {
@@ -174,6 +179,7 @@ public class Tablero {
         return false;
     }
 
+    @Override
     public boolean moverMazoAColumna(Mazo mazo, Columna columna){
         Carta ultimaCartaMazo = mazo.obtenerUltimaCartaRevelada();
         Carta ultimaCartaColumna = columna.obtenerUltimaCartaRevelada();
@@ -186,6 +192,7 @@ public class Tablero {
         return false;
     }
 
+    @Override
     public boolean moverColumnaAColumna(Columna columnaOrigen, Columna columnaDestino, List<Carta> cartasAMover )
     {
         Carta ultimaCartaRCD = columnaDestino.obtenerUltimaCartaRevelada();
