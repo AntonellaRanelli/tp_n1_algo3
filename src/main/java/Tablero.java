@@ -1,18 +1,30 @@
-import java.io.Serializable;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Tablero implements Serializable {
+    protected List<Carta> baraja = new ArrayList<>();
+    protected List<Columna> columnas = new ArrayList<>();
+    protected List<Fundacion> fundaciones = new ArrayList<>();
+    protected Mazo mazo = new Mazo( new ArrayList<>(), new ArrayList<>());
+
     protected abstract void iniciarJuego();
 
     protected abstract List<Carta> crearCartas();
 
     protected abstract void repartirCartas();
 
-    public abstract Columna getColumnaPorIndice(int indice);
+    public Columna getColumnaPorIndice(int indice){
+        return columnas.get(indice);
+    }
 
-    public abstract Fundacion getFundacionPorIndice(int indice);
+    public Fundacion getFundacionPorIndice(int indice){
+        return fundaciones.get(indice);
+    }
 
-    public abstract Mazo getMazo();
+    public Mazo getMazo(){
+        return mazo;
+    }
 
     public abstract boolean moverColumnaAFundacion(Columna columna, Fundacion fundacion);
 
@@ -24,4 +36,13 @@ public abstract class Tablero implements Serializable {
 
     public abstract boolean moverColumnaAColumna(Columna columnaOrigen, Columna columnaDestino, List<Carta> cartasAMover );
 
+    public void serializar(OutputStream tablero) throws IOException {
+        ObjectOutputStream datoAGuardar = new ObjectOutputStream(tablero);
+        datoAGuardar.writeObject(this);
+    }
+
+    public static Tablero deserializar(InputStream entrada) throws IOException, ClassNotFoundException {
+        ObjectInputStream tableroGuardado = new ObjectInputStream(entrada);
+        return (Tablero) tableroGuardado.readObject();
+    }
 }

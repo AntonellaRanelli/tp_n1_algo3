@@ -4,10 +4,6 @@ import java.util.List;
 import java.util.Random;
 
 public class TableroKlondike extends Tablero {
-    private List<Carta> baraja = new ArrayList<>();
-    private List<Columna> columnas = new ArrayList<>();
-    private List<Fundacion> fundaciones = new ArrayList<>();
-    private Mazo mazo = new Mazo( new ArrayList<>(), new ArrayList<>());
 
     public TableroKlondike() { //Constructor
         iniciarJuego();
@@ -108,21 +104,6 @@ public class TableroKlondike extends Tablero {
         Mazo mazoAuxiliar = new Mazo(new ArrayList<>(), new ArrayList<>());
         Tablero tablero = new TableroKlondike(crearColumnas(), crearFundaciones(), mazoAuxiliar);
         return tablero;
-    }
-
-    @Override
-    public Columna getColumnaPorIndice(int indice){
-        return columnas.get(indice);
-    }
-
-    @Override
-    public Fundacion getFundacionPorIndice(int indice){
-        return fundaciones.get(indice);
-    }
-
-    @Override
-    public Mazo getMazo(){
-        return mazo;
     }
 
     @Override

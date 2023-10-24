@@ -4,20 +4,16 @@ import java.util.List;
 import java.util.Random;
 
 public class TableroSpider extends Tablero{
-    private List<Carta> baraja;
-    private List<Columna> columnas;
-    private List<Fundacion> fundaciones;
-    private List<Mazo> mazos;
-
-    public TableroSpider(List<Columna> columnas, List<Fundacion> fundaciones, List<Mazo> mazo)
-    {
-        this.columnas = columnas;
-        this.fundaciones = fundaciones;
-        this.mazos = mazo;
-    }
 
     public TableroSpider() { //Constructor
         iniciarJuego();
+    }
+
+    public TableroSpider(List<Columna> columnas, List<Fundacion> fundaciones, Mazo mazo)
+    {
+        this.columnas = columnas;
+        this.fundaciones = fundaciones;
+        this.mazo = mazo;
     }
 
     @Override
@@ -26,7 +22,6 @@ public class TableroSpider extends Tablero{
         baraja = crearCartas();
         columnas = crearColumnas();
         fundaciones = crearFundaciones();
-        mazos = crearMazos();
         Collections.shuffle(baraja, random);
         repartirCartas();
     }
@@ -73,15 +68,6 @@ public class TableroSpider extends Tablero{
         return fundacionesAuxiliar;
     }
 
-    protected static List<Mazo> crearMazos(){
-        int cantidadMazos = 4;
-        List<Mazo> mazos = new ArrayList<>();
-
-        for (int i=0; i<cantidadMazos; i++)
-            mazos.add(new Mazo(new ArrayList<>(), new ArrayList<>()));
-
-        return mazos;
-    }
 
     @Override
     protected void repartirCartas() {
@@ -115,36 +101,16 @@ public class TableroSpider extends Tablero{
             cartasPorColumna++;
         }
 
-        // Agregar las cartas restantes a los mazos
-        for (Mazo mazo:mazos){
-            listaAuxiliar.clear();
-            for (int i=0; i<10; i++){
-                listaAuxiliar.add(baraja.remove(0));
-            }
-            mazo.setCartasOcultas(listaAuxiliar);
-        }
+        // Agregar las cartas restantes al mazo
+        mazo.setCartasOcultas(new ArrayList<>(baraja));
     }
 
-    public static TableroSpider crearJuegoVacioParaTest(){
-        List<Mazo> mazosAuxiliar = crearMazos();
-        TableroSpider tablero = new TableroSpider(crearColumnas(), crearFundaciones(), mazosAuxiliar);
+    public static Tablero crearJuegoVacioParaTest(){
+        Mazo mazoAuxiliar = new Mazo(new ArrayList<>(), new ArrayList<>());
+        Tablero tablero = new TableroSpider(crearColumnas(), crearFundaciones(), mazoAuxiliar);
         return tablero;
     }
 
-    @Override
-    public Columna getColumnaPorIndice(int indice){
-        return columnas.get(indice);
-    }
-
-    @Override
-    public Fundacion getFundacionPorIndice(int indice){
-        return fundaciones.get(indice);
-    }
-
-    @Override //Rehacer
-    public Mazo getMazo(){
-        return null;
-    }
 
     //Rehacer
     @Override
