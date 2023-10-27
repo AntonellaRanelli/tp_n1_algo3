@@ -83,7 +83,7 @@ public class TableroTest {
         columna.agregarCarta(listadoCarta);
         tablero.moverColumnaAFundacion(columna, fundacion);
 
-        assertFalse(Reglas.verificarJuegoGanado(fundaciones));
+        assertFalse(ReglasKlondike.verificarJuegoGanado(fundaciones));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class TableroTest {
             posicion++;
         }
 
-        assertTrue(Reglas.verificarJuegoGanado(fundaciones));
+        assertTrue(ReglasKlondike.verificarJuegoGanado(fundaciones));
     }
 
     @Test
@@ -137,7 +137,7 @@ public class TableroTest {
         Fundacion fundacion = tablero.getFundacionPorIndice(0);
         fundacion.eliminarUltimaCarta();
 
-        assertFalse(Reglas.verificarJuegoGanado(fundaciones));
+        assertFalse(ReglasKlondike.verificarJuegoGanado(fundaciones));
     }
 
     @Test

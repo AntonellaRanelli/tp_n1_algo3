@@ -3,17 +3,20 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+//TODO: Para solucionar este error hay que sacar el metodo mover mazo a fundacion ya que no es comun a ambos juegos de Tablero.
 public class TableroSpider extends Tablero{
 
     public TableroSpider() { //Constructor
         iniciarJuego();
     }
 
-    public TableroSpider(List<Columna> columnas, List<Fundacion> fundaciones, Mazo mazo)
+    private ReglasSpider reglas;
+    public TableroSpider(List<Columna> columnas, List<Fundacion> fundaciones, Mazo mazo, ReglasSpider reglas)
     {
         this.columnas = columnas;
         this.fundaciones = fundaciones;
         this.mazo = mazo;
+        this.reglas = reglas;
     }
 
     @Override
@@ -31,18 +34,9 @@ public class TableroSpider extends Tablero{
     {
         List<Carta> cartas = new ArrayList<>();
 
-        for (Palo palo: Palo.values())
-        {
-            for(Valor valor: Valor.values())
-            {
-                if (palo.ordinal() < 2)
-                {
-                    cartas.add(new Carta(ColorCarta.ROJO, palo, valor));
-                    cartas.add(new Carta(ColorCarta.ROJO, palo, valor));
-                }else {
-                    cartas.add(new Carta(ColorCarta.NEGRO, palo, valor));
-                    cartas.add(new Carta(ColorCarta.NEGRO, palo, valor));
-                }
+        for (int i = 0; i < 8; i++) {
+            for (Valor valor : Valor.values()) {
+                cartas.add(new Carta(ColorCarta.NEGRO, Palo.PICAS, valor));
             }
         }
         return cartas;
@@ -79,6 +73,9 @@ public class TableroSpider extends Tablero{
         for (int i=0; i<cantidadColumnas; i++) {
             columaActual = columnas.get(i);
 
+            if (i>=4)
+                cartasPorColumna = 5;
+
             for (int u = 0; u < cartasPorColumna - 1; u++) {
 
                 if (!baraja.isEmpty()) {
@@ -93,9 +90,6 @@ public class TableroSpider extends Tablero{
                 Carta cartaRevelada = baraja.remove(0);
                 columaActual.agregarCarta(cartaRevelada);
             }
-
-            if (i==3)
-                cartasPorColumna = 5;
 
             listaAuxiliar.clear();
             cartasPorColumna++;
@@ -112,19 +106,20 @@ public class TableroSpider extends Tablero{
     }
 
 
+    //TODO: no se me ocurrio como modificarlo, deberiamos ver si tenemos que crear un metodo que sea if columnacompleta osea las 13 cartas ordenadas y que ahi se muevan todas automaticamente
     //Rehacer
     @Override
     public boolean moverColumnaAFundacion(Columna columna, Fundacion fundacion)
     {
         Carta cartaAuxiliar = columna.obtenerUltimaCartaRevelada();
 
-        if (!Reglas.validarExistenciaCarta(cartaAuxiliar)) //Unifico validaciones en Reglas issue 9
+        if (!reglas.validarExistenciaCarta(cartaAuxiliar)) //Unifico validaciones en Reglas issue 9
             return false;
 
         List<Carta> arregloAuxiliar = new ArrayList<>();
         arregloAuxiliar.add(cartaAuxiliar);
 
-        if (Reglas.validarMovimientoAFundacion(cartaAuxiliar, fundacion.obtenerUltimaCarta()))
+        if (reglas.validarMovimientoAFundacion(cartaAuxiliar, fundacion.obtenerUltimaCarta()))
         {
             fundacion.agregarCarta(cartaAuxiliar);
             columna.sacarCartas(arregloAuxiliar);
@@ -134,61 +129,31 @@ public class TableroSpider extends Tablero{
         return false;
     }
 
-    //Rehacer
-    @Override
-    public boolean moverMazoAFundacion(Mazo mazo, Fundacion fundacion){
-        Carta cartaAuxiliar = mazo.obtenerUltimaCartaRevelada();
 
-        if (!Reglas.validarExistenciaCarta(cartaAuxiliar))
-            return false;
-
-
-        if (Reglas.validarMovimientoAFundacion(cartaAuxiliar, fundacion.obtenerUltimaCarta()))
-        {
-            fundacion.agregarCarta(cartaAuxiliar);
-            mazo.entregarCarta();
-            return true;
-        }
-        return false;
-    }
-
-    //Rehacer
-    @Override
-    public  boolean moverFundacionAColumna(Fundacion fundacion, Columna columna)
-    {
-        Carta ultimaCartaFundacion = fundacion.obtenerUltimaCarta();
-        Carta ultimaCartaColumna = columna.obtenerUltimaCartaRevelada();
-
-        if (Reglas.validarMovimientoAColumna(ultimaCartaColumna, ultimaCartaFundacion)){
-            fundacion.eliminarUltimaCarta();
-            columna.agregarCarta(ultimaCartaFundacion);
-
-            return true;
-        }
-        return false;
-    }
-
-    //Rehacer
+    //Rehice
     @Override
     public boolean moverMazoAColumna(Mazo mazo, Columna columna){
-        Carta ultimaCartaMazo = mazo.obtenerUltimaCartaRevelada();
-        Carta ultimaCartaColumna = columna.obtenerUltimaCartaRevelada();
+        int cantidadColumnas = columnas.size();
 
-        if (Reglas.validarMovimientoAColumna(ultimaCartaColumna, ultimaCartaMazo)){
-            columna.agregarCarta(ultimaCartaMazo);
-            mazo.entregarCarta();
-            return true;
+        for (int i = 0; i < cantidadColumnas; i++) {
+            Columna columnaActual = columnas.get(i);
+            if (!mazo.cartasOcultas.isEmpty()) {
+                Carta ultimaCartaMazo = mazo.obtenerUltimaCartaRevelada();
+                columnaActual.agregarCarta(ultimaCartaMazo);
+                mazo.entregarCarta();
+            }
         }
-        return false;
+        return true;
     }
 
-    //Rehacer
+
+    //Rehice
     @Override
     public boolean moverColumnaAColumna(Columna columnaOrigen, Columna columnaDestino, List<Carta> cartasAMover )
     {
         Carta ultimaCartaRCD = columnaDestino.obtenerUltimaCartaRevelada();
 
-        if(Reglas.validarMovimientoEntreColumnas(cartasAMover, ultimaCartaRCD))
+        if(reglas.validarMovimientoEntreColumnas(cartasAMover, ultimaCartaRCD))
         {
             columnaDestino.agregarCarta(columnaDestino.getCartasReveladas());
             columnaOrigen.sacarCartas(cartasAMover);

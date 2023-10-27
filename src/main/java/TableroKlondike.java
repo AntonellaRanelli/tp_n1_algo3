@@ -9,11 +9,13 @@ public class TableroKlondike extends Tablero {
         iniciarJuego();
     }
 
-    public TableroKlondike(List<Columna> columnas, List<Fundacion> fundaciones, Mazo mazo)
+    private ReglasKlondike reglas;
+    public TableroKlondike(List<Columna> columnas, List<Fundacion> fundaciones, Mazo mazo, ReglasKlondike reglas)
     {
         this.columnas = columnas;
         this.fundaciones = fundaciones;
         this.mazo = mazo;
+        this.reglas = reglas;
     }
 
     @Override
@@ -100,9 +102,9 @@ public class TableroKlondike extends Tablero {
         mazo.setCartasOcultas(new ArrayList<>(baraja));
     }
 
-    public static Tablero crearJuegoVacioParaTest(){
+    public static Tablero crearJuegoVacioParaTest(ReglasKlondike reglas){
         Mazo mazoAuxiliar = new Mazo(new ArrayList<>(), new ArrayList<>());
-        Tablero tablero = new TableroKlondike(crearColumnas(), crearFundaciones(), mazoAuxiliar);
+        Tablero tablero = new TableroKlondike(crearColumnas(), crearFundaciones(), mazoAuxiliar, reglas);
         return tablero;
     }
 
@@ -111,13 +113,13 @@ public class TableroKlondike extends Tablero {
     {
         Carta cartaAuxiliar = columna.obtenerUltimaCartaRevelada();
 
-        if (!Reglas.validarExistenciaCarta(cartaAuxiliar)) //Unifico validaciones en Reglas issue 9
+        if (!reglas.validarExistenciaCarta(cartaAuxiliar)) //Unifico validaciones en Reglas issue 9
             return false;
 
         List<Carta> arregloAuxiliar = new ArrayList<>();
         arregloAuxiliar.add(cartaAuxiliar);
 
-        if (Reglas.validarMovimientoAFundacion(cartaAuxiliar, fundacion.obtenerUltimaCarta()))
+        if (reglas.validarMovimientoAFundacion(cartaAuxiliar, fundacion.obtenerUltimaCarta()))
         {
             fundacion.agregarCarta(cartaAuxiliar);
             columna.sacarCartas(arregloAuxiliar);
@@ -131,11 +133,11 @@ public class TableroKlondike extends Tablero {
     public boolean moverMazoAFundacion(Mazo mazo, Fundacion fundacion){
         Carta cartaAuxiliar = mazo.obtenerUltimaCartaRevelada();
 
-        if (!Reglas.validarExistenciaCarta(cartaAuxiliar))
+        if (!reglas.validarExistenciaCarta(cartaAuxiliar))
             return false;
 
 
-        if (Reglas.validarMovimientoAFundacion(cartaAuxiliar, fundacion.obtenerUltimaCarta()))
+        if (reglas.validarMovimientoAFundacion(cartaAuxiliar, fundacion.obtenerUltimaCarta()))
         {
             fundacion.agregarCarta(cartaAuxiliar);
             mazo.entregarCarta();
@@ -151,7 +153,7 @@ public class TableroKlondike extends Tablero {
         Carta ultimaCartaFundacion = fundacion.obtenerUltimaCarta();
         Carta ultimaCartaColumna = columna.obtenerUltimaCartaRevelada();
 
-        if (Reglas.validarMovimientoAColumna(ultimaCartaColumna, ultimaCartaFundacion)){
+        if (reglas.validarMovimientoAColumna(ultimaCartaColumna, ultimaCartaFundacion)){
             fundacion.eliminarUltimaCarta();
             columna.agregarCarta(ultimaCartaFundacion);
 
@@ -165,7 +167,7 @@ public class TableroKlondike extends Tablero {
         Carta ultimaCartaMazo = mazo.obtenerUltimaCartaRevelada();
         Carta ultimaCartaColumna = columna.obtenerUltimaCartaRevelada();
 
-        if (Reglas.validarMovimientoAColumna(ultimaCartaColumna, ultimaCartaMazo)){
+        if (reglas.validarMovimientoAColumna(ultimaCartaColumna, ultimaCartaMazo)){
             columna.agregarCarta(ultimaCartaMazo);
             mazo.entregarCarta();
             return true;
@@ -178,7 +180,7 @@ public class TableroKlondike extends Tablero {
     {
         Carta ultimaCartaRCD = columnaDestino.obtenerUltimaCartaRevelada();
 
-        if(Reglas.validarMovimientoEntreColumnas(cartasAMover, ultimaCartaRCD))
+        if(reglas.validarMovimientoEntreColumnas(cartasAMover, ultimaCartaRCD))
         {
             columnaDestino.agregarCarta(columnaDestino.getCartasReveladas());
             columnaOrigen.sacarCartas(cartasAMover);
