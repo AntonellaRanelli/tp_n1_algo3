@@ -33,6 +33,15 @@ public class Fundacion implements Serializable {
         cartas.add(carta);
     }
 
+    public void agregarCarta(List <Carta> cartas)//Agregue este metodo porque se usa en spider
+    {
+        for(Carta carta: cartas)
+        {
+            agregarCarta(carta);
+        }
+    }
+
+
     public void eliminarUltimaCarta(){
         if (!fundacionVacia()) { //Uso del metodo mazoVacio() issue 3
             int lastIndex = cartas.size() - 1;

@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-//TODO: Para solucionar este error hay que sacar el metodo mover mazo a fundacion ya que no es comun a ambos juegos de Tablero.
+//TODO: Para solucionar este error hay que sacar el metodo mover mazo a fundacion y moverFundacionAColumna  ya que no es comun a ambos juegos de Tablero.
 public class TableroSpider extends Tablero{
 
     public TableroSpider() { //Constructor
@@ -30,7 +30,7 @@ public class TableroSpider extends Tablero{
     }
 
     @Override
-    protected List<Carta> crearCartas()
+    protected List<Carta> crearCartas()// Crea mazo de cartas de picas
     {
         List<Carta> cartas = new ArrayList<>();
 
@@ -42,7 +42,7 @@ public class TableroSpider extends Tablero{
         return cartas;
     }
 
-    protected static List<Columna> crearColumnas()
+    protected static List<Columna> crearColumnas() // Crea lista de columna size 10
     {
         List<Columna> columnasAuxiliar = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -52,7 +52,7 @@ public class TableroSpider extends Tablero{
         return columnasAuxiliar;
     }
 
-    protected static List<Fundacion> crearFundaciones()
+    protected static List<Fundacion> crearFundaciones() // Crea lista fundaciones size 8
     {
         List<Fundacion> fundacionesAuxiliar = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
@@ -64,7 +64,7 @@ public class TableroSpider extends Tablero{
 
 
     @Override
-    protected void repartirCartas() {
+    protected void repartirCartas() { //reparte las cartas y crea el mazo de cartas ocultas
         List<Carta> listaAuxiliar = new ArrayList<>();
         Columna columaActual;
         int cartasPorColumna = 6;
@@ -104,30 +104,59 @@ public class TableroSpider extends Tablero{
         Tablero tablero = new TableroSpider(crearColumnas(), crearFundaciones(), mazoAuxiliar);
         return tablero;
     }
-
-
-    //TODO: no se me ocurrio como modificarlo, deberiamos ver si tenemos que crear un metodo que sea if columnacompleta osea las 13 cartas ordenadas y que ahi se muevan todas automaticamente
-    //Rehacer
-    @Override
+//TODO: creo que esta resuelto asi pero no estoy segura
+    //no se me ocurrio como modificarlo, deberiamos ver si tenemos que crear un metodo que sea if columnacompleta osea las 13 cartas ordenadas y que ahi se muevan todas automaticamente
+// Para mi seria mejor que reciba una lista de cartas, pero para usar la interface lo dejo asi
     public boolean moverColumnaAFundacion(Columna columna, Fundacion fundacion)
     {
-        Carta cartaAuxiliar = columna.obtenerUltimaCartaRevelada();
+        List<Carta> cartasOrdenadas = new ArrayList<>();
+        List<Carta> cartasDeColumna = new ArrayList<>();
 
-        if (!reglas.validarExistenciaCarta(cartaAuxiliar)) //Unifico validaciones en Reglas issue 9
-            return false;
+        cartasDeColumna = columna.getCartasReveladas();
 
-        List<Carta> arregloAuxiliar = new ArrayList<>();
-        arregloAuxiliar.add(cartaAuxiliar);
+        int tamanoLista = cartasDeColumna.size();
+        int cantidadUltimasCartas = 13;
 
-        if (reglas.validarMovimientoAFundacion(cartaAuxiliar, fundacion.obtenerUltimaCarta()))
+        if(seCumpleSecuenciaCompleta(columna))
         {
-            fundacion.agregarCarta(cartaAuxiliar);
-            columna.sacarCartas(arregloAuxiliar);
+            for(int i = tamanoLista - cantidadUltimasCartas; i < tamanoLista; i++)
+            {
+                Carta cartaAux = cartasDeColumna.get(i);
+                cartasOrdenadas.add(cartaAux);
+            }
+
+            columna.sacarCartas(cartasOrdenadas);
+            fundacion.agregarCarta(cartasOrdenadas);
             return true;
         }
-
         return false;
     }
+
+    //No entendi bien la distribucion de valores, supuse que cuando hago carta.getNumero(), k = 13
+
+    public boolean seCumpleSecuenciaCompleta(Columna columna) { //Verifica que haya del 13 al 1 en las ultimas cartas de la columna
+        List<Carta> cartas = columna.getCartasReveladas();
+
+        if (cartas.size() < 13) {
+            return false; // Si la columna no tiene al menos 13 cartas, no se cumple la secuencia.
+        }
+
+        int indice = cartas.size() - 1; // Empezar desde la última carta de la columna
+        int valorEsperado = 13;
+
+        for (int i = 0; i < 13; i++) {
+            Carta carta = cartas.get(indice - i);
+            if (!carta.getNumero().equals(valorEsperado)) {
+                return false; // La secuencia no se cumple si una carta no coincide.
+            }
+            valorEsperado--;
+        }
+
+        return valorEsperado == 0; // La secuencia se cumple si valorEsperado es 0.
+    }
+
+
+
 
 
     //Rehice

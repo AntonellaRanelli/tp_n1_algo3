@@ -129,7 +129,7 @@ public class TableroKlondike extends Tablero {
         return false;
     }
 
-    @Override
+
     public boolean moverMazoAFundacion(Mazo mazo, Fundacion fundacion){
         Carta cartaAuxiliar = mazo.obtenerUltimaCartaRevelada();
 
@@ -146,7 +146,8 @@ public class TableroKlondike extends Tablero {
         return false;
     }
 
-    @Override
+
+
     //arreglo issue 1
     public  boolean moverFundacionAColumna(Fundacion fundacion, Columna columna)
     {

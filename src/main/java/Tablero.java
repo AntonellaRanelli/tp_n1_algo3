@@ -28,9 +28,9 @@ public abstract class Tablero implements Serializable {
 
     public abstract boolean moverColumnaAFundacion(Columna columna, Fundacion fundacion);
 
-    public abstract boolean moverMazoAFundacion(Mazo mazo, Fundacion fundacion);
+    //public abstract boolean moverMazoAFundacion(Mazo mazo, Fundacion fundacion); // hay que sacar esta funcion de aca, no sirve para spider
 
-    public abstract  boolean moverFundacionAColumna(Fundacion fundacion, Columna columna);
+    //public abstract  boolean moverFundacionAColumna(Fundacion fundacion, Columna columna); // Dejo comentada la funcion porque no sirve para spider
 
     public abstract boolean moverMazoAColumna(Mazo mazo, Columna columna);
 

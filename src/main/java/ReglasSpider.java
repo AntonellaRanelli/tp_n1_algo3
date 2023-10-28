@@ -23,12 +23,8 @@ public class ReglasSpider implements Reglas {
                 cartaColumna.getNumero().ordinal() == cartaAIngresar.getNumero().ordinal() + 1;
     }
 
-    //TODO: Borrar este metodo que no se necesita en spider y agregarlo como metodo unico de Klondike
-    @Override
-    public boolean validarMovimientoAColumna(Carta cartaColumna, Carta cartaAIngresar) {//se arregla el incumplimiento de DRY
 
-    }
-
+    //TODO : hay que corregir los test
     @Override
     public boolean verificarJuegoGanado(List<Fundacion> fundaciones) {
         int cantidadMaximaCartas = 13;

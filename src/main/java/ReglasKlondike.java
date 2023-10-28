@@ -29,7 +29,7 @@ public class ReglasKlondike implements Reglas {
                 cartaColumna.getNumero().ordinal() == cartaAIngresar.getNumero().ordinal() + 1;
     }
 
-    @Override
+
     public boolean validarMovimientoAColumna(Carta cartaColumna, Carta cartaAIngresar) {//se arregla el incumplimiento de DRY
         if (cartaColumna == null || cartaAIngresar == null || cartaColumna.getColor() == cartaAIngresar.getColor()) {
             return false;
