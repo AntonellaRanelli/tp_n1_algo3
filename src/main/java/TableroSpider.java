@@ -99,9 +99,13 @@ public class TableroSpider extends Tablero{
         mazo.setCartasOcultas(new ArrayList<>(baraja));
     }
 
+    //Habia un error en esta funcion porque faltaba el tablero spider y lo agregue
     public static Tablero crearJuegoVacioParaTest(){
         Mazo mazoAuxiliar = new Mazo(new ArrayList<>(), new ArrayList<>());
-        Tablero tablero = new TableroSpider(crearColumnas(), crearFundaciones(), mazoAuxiliar);
+        List<Columna> columnasAuxiliar = crearColumnas();
+        List<Fundacion> fundacionesAuxiliar = crearFundaciones();
+        ReglasSpider reglas = new ReglasSpider();
+        Tablero tablero = new TableroSpider(columnasAuxiliar, fundacionesAuxiliar, mazoAuxiliar, reglas);
         return tablero;
     }
 //TODO: creo que esta resuelto asi pero no estoy segura
@@ -114,45 +118,50 @@ public class TableroSpider extends Tablero{
 
         cartasDeColumna = columna.getCartasReveladas();
 
-        int tamanoLista = cartasDeColumna.size();
-        int cantidadUltimasCartas = 13;
+        int tamanoLista = cartasDeColumna.size()-1;
+        int cantidadUltimasCartas = 12;
 
         if(seCumpleSecuenciaCompleta(columna))
         {
-            for(int i = tamanoLista - cantidadUltimasCartas; i < tamanoLista; i++)
+
+            for(int i = tamanoLista; i > tamanoLista - cantidadUltimasCartas ; i--)
             {
                 Carta cartaAux = cartasDeColumna.get(i);
                 cartasOrdenadas.add(cartaAux);
+
+
             }
 
             columna.sacarCartas(cartasOrdenadas);
             fundacion.agregarCarta(cartasOrdenadas);
+
             return true;
         }
         return false;
     }
 
-    //No entendi bien la distribucion de valores, supuse que cuando hago carta.getNumero(), k = 13
 
-    public boolean seCumpleSecuenciaCompleta(Columna columna) { //Verifica que haya del 13 al 1 en las ultimas cartas de la columna
+    public boolean seCumpleSecuenciaCompleta(Columna columna) {
         List<Carta> cartas = columna.getCartasReveladas();
 
         if (cartas.size() < 13) {
-            return false; // Si la columna no tiene al menos 13 cartas, no se cumple la secuencia.
+            return false;
         }
+        Valor[] secuenciaEsperada = {Valor.AS, Valor.DOS, Valor.TRES, Valor.CUATRO, Valor.CINCO, Valor.SEIS, Valor.SIETE, Valor.OCHO, Valor.NUEVE,Valor.DIEZ, Valor.J, Valor.Q, Valor.K,};
 
-        int indice = cartas.size() - 1; // Empezar desde la última carta de la columna
-        int valorEsperado = 13;
+        int indice = cartas.size()-1;
 
-        for (int i = 0; i < 13; i++) {
-            Carta carta = cartas.get(indice - i);
-            if (!carta.getNumero().equals(valorEsperado)) {
-                return false; // La secuencia no se cumple si una carta no coincide.
+        for (Valor valor : secuenciaEsperada) {
+            Carta carta = cartas.get(indice);
+
+            if (carta.getNumero() != valor) {
+
+                return false;
             }
-            valorEsperado--;
+            indice--;
         }
 
-        return valorEsperado == 0; // La secuencia se cumple si valorEsperado es 0.
+        return true;
     }
 
 

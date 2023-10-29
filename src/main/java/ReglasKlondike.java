@@ -38,8 +38,8 @@ public class ReglasKlondike implements Reglas {
         return cartaAIngresar.getNumero().ordinal() + 1 == cartaColumna.getNumero().ordinal();
     }
 
-    @Override
-    public boolean verificarJuegoGanado(List<Fundacion> fundaciones) {
+
+     public boolean verificarJuegoGanado(List<Fundacion> fundaciones) {
         int cantidadMaximaCartas = 13;
         for (Fundacion fundacion : fundaciones) {
             List<Carta> cartas = fundacion.getCartas();

@@ -149,6 +149,7 @@ public class TableroKlondike extends Tablero {
 
 
     //arreglo issue 1
+
     public  boolean moverFundacionAColumna(Fundacion fundacion, Columna columna)
     {
         Carta ultimaCartaFundacion = fundacion.obtenerUltimaCarta();
