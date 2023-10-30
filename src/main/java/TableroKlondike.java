@@ -5,11 +5,12 @@ import java.util.Random;
 
 public class TableroKlondike extends Tablero {
 
+    private ReglasKlondike reglas;
+
     public TableroKlondike() { //Constructor
         iniciarJuego();
     }
 
-    private ReglasKlondike reglas;
     public TableroKlondike(List<Columna> columnas, List<Fundacion> fundaciones, Mazo mazo, ReglasKlondike reglas)
     {
         this.columnas = columnas;

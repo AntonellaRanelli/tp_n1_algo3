@@ -3,14 +3,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-//TODO: Para solucionar este error hay que sacar el metodo mover mazo a fundacion y moverFundacionAColumna  ya que no es comun a ambos juegos de Tablero.
 public class TableroSpider extends Tablero{
+    private ReglasSpider reglas;
 
     public TableroSpider() { //Constructor
         iniciarJuego();
     }
 
-    private ReglasSpider reglas;
     public TableroSpider(List<Columna> columnas, List<Fundacion> fundaciones, Mazo mazo, ReglasSpider reglas)
     {
         this.columnas = columnas;
@@ -108,10 +107,8 @@ public class TableroSpider extends Tablero{
         TableroSpider tablero = new TableroSpider(columnasAuxiliar, fundacionesAuxiliar, mazoAuxiliar, reglas);
         return tablero;
     }
-//TODO: creo que esta resuelto asi pero no estoy segura
-    //no se me ocurrio como modificarlo, deberiamos ver si tenemos que crear un metodo que sea if columnacompleta osea las 13 cartas ordenadas y que ahi se muevan todas automaticamente
-// Para mi seria mejor que reciba una lista de cartas, pero para usar la interface lo dejo asi
-    public boolean moverColumnaAFundacion(Columna columna, Fundacion fundacion)
+
+ public boolean moverColumnaAFundacion(Columna columna, Fundacion fundacion)
     {
         List<Carta> cartasOrdenadas = new ArrayList<>();
         List<Carta> cartasDeColumna = new ArrayList<>();
