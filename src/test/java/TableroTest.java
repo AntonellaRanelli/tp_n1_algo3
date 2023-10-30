@@ -183,13 +183,10 @@ public class TableroTest {
         assertFalse(tablero.moverColumnaAFundacion(columna, fundacion));
     }
 
-    //TODO: hay que arreglar la interface tablero para que se puedan usar en los test
-
-    /*
     @Test
     public void testFundacionAColumnaInvalido(){
         ReglasKlondike reglas = new ReglasKlondike();
-        Tablero tablero = TableroKlondike.crearJuegoVacioParaTest(reglas);
+        TableroKlondike tablero = TableroKlondike.crearJuegoVacioParaTest(reglas);
         Columna columna = tablero.getColumnaPorIndice(0);
         Fundacion fundacion = tablero.getFundacionPorIndice(0);
         Carta carta = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.AS);
@@ -203,7 +200,7 @@ public class TableroTest {
     @Test
     public void testFundacionAColumnaValido(){
         ReglasKlondike reglas = new ReglasKlondike();
-        Tablero tablero = TableroKlondike.crearJuegoVacioParaTest(reglas);
+        TableroKlondike tablero = TableroKlondike.crearJuegoVacioParaTest(reglas);
         Columna columna = tablero.getColumnaPorIndice(0);
         Fundacion fundacion = tablero.getFundacionPorIndice(0);
         Carta carta = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.AS);
@@ -215,7 +212,7 @@ public class TableroTest {
         columna.agregarCarta(cartaTres);
 
         assertTrue(tablero.moverFundacionAColumna(fundacion, columna));
-    }*/
+    }
 
     @Test
     public void testColumnaAColumnaValido(){
@@ -280,11 +277,11 @@ public class TableroTest {
 
         assertFalse(tablero.moverColumnaAColumna(columna1, columna, cartasAMover));
     }
-/*
+
     @Test
     public void testMazoaFundacionValido(){
         ReglasKlondike reglas = new ReglasKlondike();
-        Tablero tablero = TableroKlondike.crearJuegoVacioParaTest(reglas);
+        TableroKlondike tablero = TableroKlondike.crearJuegoVacioParaTest(reglas);
         List<Fundacion> fundaciones = new ArrayList<>();
         for(int i=0; i<4; i++){
             fundaciones.add(tablero.getFundacionPorIndice(i));
@@ -303,12 +300,12 @@ public class TableroTest {
         fundacion.agregarCarta(carta);
 
         assertTrue(tablero.moverMazoAFundacion(mazo, fundacion));
-    }*/
-/*
+    }
+
     @Test
     public void testMazoaFundacionInvalido(){
         ReglasKlondike reglas = new ReglasKlondike();
-        Tablero tablero = TableroKlondike.crearJuegoVacioParaTest(reglas);
+        TableroKlondike tablero = TableroKlondike.crearJuegoVacioParaTest(reglas);
         List<Fundacion> fundaciones = new ArrayList<>();
         for(int i=0; i<4; i++){
             fundaciones.add(tablero.getFundacionPorIndice(i));
@@ -328,7 +325,7 @@ public class TableroTest {
 
         assertFalse(tablero.moverMazoAFundacion(mazo, fundacion));
     }
-*/
+
     @Test
     public void testMazoaColumnaValido(){
         ReglasKlondike reglas = new ReglasKlondike();

@@ -7,17 +7,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class TableroSpiderTest {
-    private TableroSpider tablero;
-
-    @Before
-    public void setUp() {
-        // Configuración común para las pruebas
-        List<Columna> columnas = new ArrayList<>();
-        List<Fundacion> fundaciones = new ArrayList<>();
-        Mazo mazo = new Mazo(new ArrayList<>(), new ArrayList<>());
-        ReglasSpider reglas = new ReglasSpider();
-        tablero = new TableroSpider(columnas, fundaciones, mazo, reglas);
-    }
+    private TableroSpider tablero = TableroSpider.crearJuegoVacioParaTest();
 
     @Test
     public void testMoverColumnaAFundacion() {
@@ -47,9 +37,7 @@ public class TableroSpiderTest {
 
 
         }
-
         assertTrue(tablero.moverColumnaAFundacion(columna, fundacion));
-
     }
 
     @Test
@@ -180,17 +168,5 @@ public class TableroSpiderTest {
 
         assertFalse(tablero.moverColumnaAColumna(columnaOrigen, columnaDestino, cartasAMover));
         assertEquals(3, columnaOrigen.getCartasReveladas().size());
-
     }
-
-
-
-
-
-
-
-
-
-
-
 }

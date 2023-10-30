@@ -100,12 +100,12 @@ public class TableroSpider extends Tablero{
     }
 
     //Habia un error en esta funcion porque faltaba el tablero spider y lo agregue
-    public static Tablero crearJuegoVacioParaTest(){
+    public static TableroSpider crearJuegoVacioParaTest(){
         Mazo mazoAuxiliar = new Mazo(new ArrayList<>(), new ArrayList<>());
         List<Columna> columnasAuxiliar = crearColumnas();
         List<Fundacion> fundacionesAuxiliar = crearFundaciones();
         ReglasSpider reglas = new ReglasSpider();
-        Tablero tablero = new TableroSpider(columnasAuxiliar, fundacionesAuxiliar, mazoAuxiliar, reglas);
+        TableroSpider tablero = new TableroSpider(columnasAuxiliar, fundacionesAuxiliar, mazoAuxiliar, reglas);
         return tablero;
     }
 //TODO: creo que esta resuelto asi pero no estoy segura

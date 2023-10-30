@@ -102,9 +102,9 @@ public class TableroKlondike extends Tablero {
         mazo.setCartasOcultas(new ArrayList<>(baraja));
     }
 
-    public static Tablero crearJuegoVacioParaTest(ReglasKlondike reglas){
+    public static TableroKlondike crearJuegoVacioParaTest(ReglasKlondike reglas){
         Mazo mazoAuxiliar = new Mazo(new ArrayList<>(), new ArrayList<>());
-        Tablero tablero = new TableroKlondike(crearColumnas(), crearFundaciones(), mazoAuxiliar, reglas);
+        TableroKlondike tablero = new TableroKlondike(crearColumnas(), crearFundaciones(), mazoAuxiliar, reglas);
         return tablero;
     }
 
