@@ -33,7 +33,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         var loader = new FXMLLoader(getClass().getResource("menu.fxml"));
-        var juego = new FXMLLoader(getClass().getResource("solitario.fxml"));
+        var juego = new FXMLLoader(getClass().getResource("solitarioSpider.fxml"));
 
         loader.setController(this);
         VBox ventanaSeleccion = loader.load();
