@@ -51,8 +51,6 @@ public class Main extends Application {
                 stage.setScene(scene);
                 stage.setResizable(false);
                 stage.show();
-
-                juegoKlondike(new TableroKlondike(), stage, scene);
             }
         });
 
@@ -67,30 +65,5 @@ public class Main extends Application {
         });
 
 
-    }
-
-    void juegoKlondike(TableroKlondike tablero, Stage stage, Scene escena){
-        GridPane gridPane = new GridPane();
-        gridPane.setPadding(new Insets(10));
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-
-        // Agregar cartas al GridPane
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 3; j++) {
-                // Puedes cargar imágenes de cartas desde archivos o recursos
-                // En este ejemplo, se utiliza una imagen de ejemplo (debe ser reemplazada)
-                Image image = new Image("/Large/00.png");
-                ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(100); // Ajustar según sea necesario
-                imageView.setFitHeight(150); // Ajustar según sea necesario
-
-                // Agregar la imagen al GridPane en la posición i, j
-                gridPane.add(imageView, j, i);
-            }
-        }
-
-        StackPane root = (StackPane) escena.getRoot();
-        root.getChildren().add(gridPane);
     }
 }
