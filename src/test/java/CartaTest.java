@@ -1,3 +1,7 @@
+import Base.Carta;
+import Base.ColorCarta;
+import Base.Palo;
+import Base.Valor;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

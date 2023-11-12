@@ -1,3 +1,4 @@
+import Base.*;
 import org.junit.Test;
 
 import java.util.ArrayList;

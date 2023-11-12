@@ -1,4 +1,5 @@
-import static org.junit.Assert.*;
+import Base.*;
+import Spider.ReglasSpider;
 import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
