@@ -37,6 +37,7 @@ public abstract class Tablero implements Serializable {
     public void serializar(OutputStream tablero) throws IOException {
         ObjectOutputStream datoAGuardar = new ObjectOutputStream(tablero);
         datoAGuardar.writeObject(this);
+        datoAGuardar.close();
     }
 
     public static Tablero deserializar(InputStream entrada) throws IOException, ClassNotFoundException {
