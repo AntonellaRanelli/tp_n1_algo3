@@ -117,6 +117,4 @@ public class ReglasSpiderTest {
         assertFalse(resultado);
     }
 
-
-
 }
