@@ -32,38 +32,46 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        var loader = new FXMLLoader(getClass().getResource("menu.fxml"));
-        var juego = new FXMLLoader(getClass().getResource("solitarioSpider.fxml"));
+        var menuLoader = new FXMLLoader(getClass().getResource("menu.fxml"));
+        var spiderLoader = new FXMLLoader(getClass().getResource("solitarioSpider.fxml"));
+        var klondikeLoader = new FXMLLoader(getClass().getResource("solitarioSpider.fxml"));
 
-        loader.setController(this);
-        VBox ventanaSeleccion = loader.load();
-        VBox ventanaJuego = juego.load();
+        menuLoader.setController(this);
+        VBox ventanaSeleccion = menuLoader.load();
+
         var sceneSeleccion = new Scene(ventanaSeleccion);
-        var scene = new Scene(ventanaJuego);
+
 
         stage.setScene(sceneSeleccion);
         stage.show();
 
-        botonKlondike.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                stage.close();
-                stage.setScene(scene);
-                stage.setResizable(false);
-                stage.show();
+        botonKlondike.setOnAction(actionEvent -> {
+            try {
+                VBox ventanaJuego = klondikeLoader.load();
+                iniciarJuego(stage, ventanaJuego);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
 
-        botonSpider.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                stage.close();
-                stage.setScene(scene);
-                stage.setResizable(false);
-                stage.show();
+        botonSpider.setOnAction(actionEvent -> {
+            try {
+                VBox ventanaJuego = spiderLoader.load();
+                iniciarJuego(stage, ventanaJuego);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
 
 
+    }
+
+    private void iniciarJuego(Stage stage, VBox ventanaJuego) {
+        var scene = new Scene(ventanaJuego);
+        stage.close();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        stage.show();
     }
 }

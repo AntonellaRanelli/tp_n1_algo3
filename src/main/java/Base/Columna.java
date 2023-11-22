@@ -19,6 +19,9 @@ public class Columna extends CartasApilable {
     {
         cartasReveladas.add(carta);
     }
+    public void agregarCartaOculta(Carta carta) { // Funcion para agregar cartas al array de ocultas
+        cartasOcultas.add(carta);
+    }
     public List<Carta> getCartasReveladas() { // Devuelve lista
         return cartasReveladas;
     }
@@ -32,7 +35,16 @@ public class Columna extends CartasApilable {
         this.revelarCarta();
     }
 
+    public void sacarCartas(List<Carta> cartasASacar, boolean deberiaRevelar) {
+        cartasReveladas.removeAll(cartasASacar);
+        if(deberiaRevelar) this.revelarCarta();
+    }
+
     public int cantidadCartasOcultas(){
         return cartasOcultas.size();
+    }
+
+    public int cantidadCartasReveladas(){
+        return cartasReveladas.size();
     }
 }

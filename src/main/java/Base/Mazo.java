@@ -33,6 +33,14 @@ public class Mazo extends CartasApilable {
         return null; // Si no hay cartas reveladas devuelve null
     }
 
+    public Carta entregarCartaOculta() { //devuelve la ultima carta oculta y la elimina de la lista .
+        if (!cartasOcultas.isEmpty()) {
+            int lastIndex = cartasOcultas.size() - 1;
+            return cartasOcultas.remove(lastIndex);
+        }
+        return null; // Si no hay cartas ocultas devuelve null
+    }
+
     public void resetearMazo() { //Vacia la lista de cartasReveladas y las agrega a cartas ocultas
         cartasOcultas.addAll(cartasReveladas);
         cartasReveladas.clear();

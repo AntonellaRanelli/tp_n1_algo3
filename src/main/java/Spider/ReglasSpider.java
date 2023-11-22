@@ -16,7 +16,20 @@ public class ReglasSpider implements Reglas {
             return true;
         } else {
             // Verificar si el número de la cartaColumnaDestino es mayor por 1
-            return cartaColumnaDestino.getNumero().ordinal() - cartasAMover.get(0).getNumero().ordinal() == 1;
+            boolean sigueElOrden = cartaColumnaDestino.getNumero().ordinal() - cartasAMover.get(0).getNumero().ordinal() == 1;
+            boolean rompePatron = false;
+            // Verificar que todas las cartas a mover mantengan el patrón
+            for(int i = 0; i < cartasAMover.size(); i++) {
+                if(i + 1 < cartasAMover.size()) {
+                    Carta cartaActual = cartasAMover.get(i);
+                    Carta proximaCarta = cartasAMover.get(i+1);
+                    if(cartaActual.getNumero().ordinal() - proximaCarta.getNumero().ordinal()  != 1) {
+                        rompePatron = true;
+                    }
+                }
+            }
+
+            return sigueElOrden && !rompePatron;
         }// Movimiento válido
     }
 

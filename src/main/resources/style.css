@@ -1,0 +1,56 @@
+.carta {
+    -fx-background-color: white;
+    -fx-border-radius: 8;
+    -fx-background-radius: 12;
+    -fx-padding: 16;
+    -fx-border-color: black;
+    -fx-border-width: 5px;
+    -fx-pref-width:141px;
+    -fx-pref-height:194px;
+    -fx-cursor: hand;
+}
+
+.carta:hover {
+    -fx-background-color: rgb(220, 220, 220);
+}
+
+.boton-volver {
+    -fx-pref-width: 200;
+    -fx-pref-height: 100;
+    -fx-font-size: 20px;
+    -fx-cursor: hand;
+}
+
+.carta-seleccionada {
+    -fx-background-color: rgba(187, 167, 255, 0.81);
+}
+
+.carta-seleccionada:hover {
+    -fx-background-color: rgba(157, 136, 246, 0.81);
+}
+
+.columna-vacia {
+    -fx-pref-width: 141px;
+    -fx-pref-height: 194px;
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-cursor: hand;
+}
+
+.texto-carta {
+    -fx-fill: black;
+    -fx-translate-y: 10;
+    -fx-translate-x: 15;
+    -fx-font-size: 20;
+}
+
+.panel-victoria {
+    -fx-pref-width: 1550px;
+    -fx-pref-height: 940px;
+    -fx-background-color: white;
+    -fx-background-radius: 30;
+    -fx-border-radius: 25;
+}
+
+.texto-victoria {
+    -fx-font-size: 60;
+}
