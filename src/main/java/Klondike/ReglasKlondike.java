@@ -39,9 +39,8 @@ public class ReglasKlondike implements Reglas {
 
     public boolean validarMovimientoAColumna(Carta cartaColumna, Carta cartaAIngresar) {//se arregla el incumplimiento de DRY
         if (cartaColumna == null || cartaAIngresar == null || cartaColumna.getColor() == cartaAIngresar.getColor()) {
-            return false;
+            return cartaColumna == null && cartaAIngresar.getNumero() == Valor.K;
         }
-
         return cartaAIngresar.getNumero().ordinal() + 1 == cartaColumna.getNumero().ordinal();
     }
 

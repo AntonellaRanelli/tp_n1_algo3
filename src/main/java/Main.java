@@ -1,4 +1,4 @@
-import Base.Tablero;
+import Base.*;
 import Klondike.TableroKlondike;
 import Spider.TableroSpider;
 import javafx.application.Application;
@@ -11,16 +11,12 @@ import javafx.stage.Stage;
 import java.io.*;
 
 public class Main extends Application {
-    //Ver esta variable. Para que stop pueda guardar el juego cuando se cierra la ventana
-    //usa esta variable, donde se guarda el tablero una vez creado o cargado.
-    Tablero tablero;
+    static Tablero tablero;
     @Override
     public void start(Stage stage) throws Exception {
         checkJuegoGuardado(stage);
     }
 
-    //busca que exista un archivo llamado datos en la carpeta por defecto.
-    //La direccion de la carpeta la maneja la maquina virtual.
     public void checkJuegoGuardado(Stage stage) {
         try{
             FileInputStream juego = new FileInputStream("datos.java");
@@ -30,11 +26,9 @@ public class Main extends Application {
         }
     }
 
-    //Carga el cuadro de aviso de juego guardado.
     public void continuarJuegoGuardado(Stage stage, FileInputStream juego){
         try {
             var menuJuegoGuardado = new FXMLLoader(getClass().getResource("juegoGuardado.fxml"));
-            menuJuegoGuardado.setController(this);
             VBox ventanaJuegoGuardado = menuJuegoGuardado.load();
             Button botonSi = (Button) ventanaJuegoGuardado.lookup("#botonSi");
             Button botonNo = (Button) ventanaJuegoGuardado.lookup("#botonNo");
@@ -44,8 +38,8 @@ public class Main extends Application {
             stage.show();
 
             botonSi.setOnAction(actionEvent -> {
-                cargarJuegoGuardado(juego);
                 stage.close();
+                cargarJuegoGuardado(juego, stage);
             });
 
             botonNo.setOnAction(actionEvent -> {
@@ -53,17 +47,16 @@ public class Main extends Application {
                 seleccionarJuegoNuevo(stage);
             });
         }catch (IOException ex){
+            ex.printStackTrace();
         }
     }
 
-    //Carga el cuadro de seleccion de juego.
-    // Dentro de la logica de los botones
     void seleccionarJuegoNuevo(Stage stage){
+        FXMLLoader juego = new FXMLLoader(getClass().getResource("solitarioKlondike.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
         try {
-            var loader = new FXMLLoader(getClass().getResource("menu.fxml"));
             VBox ventanaSeleccion = loader.load();
             var sceneSeleccion = new Scene(ventanaSeleccion);
-            loader.setController(this);
             stage.setScene(sceneSeleccion);
             stage.show();
 
@@ -71,51 +64,38 @@ public class Main extends Application {
             Button botonSpider = (Button) ventanaSeleccion.lookup("#botonSpider");
 
             botonKlondike.setOnAction(actionEvent -> {
-                var juego = new FXMLLoader(getClass().getResource("solitarioKlondike.fxml"));
                 try {
-                    VBox ventanaJuego = juego.load();
-                    var scene = new Scene(ventanaJuego);
                     stage.close();
-                    stage.setScene(scene);
-                    stage.setResizable(false);
-                    stage.show();
                     TableroKlondike nuevoTablero = new TableroKlondike();
+                    VistaTablero.setTableroKlondike(nuevoTablero);
                     tablero = (Tablero) nuevoTablero;
-                } catch (IOException e) {}
-
+                    VBox ventanaJuego = juego.load();
+                    juegoKlondike(stage, ventanaJuego);
+                }catch (IOException ex){
+                    ex.printStackTrace();
+                }
             });
 
             botonSpider.setOnAction(actionEvent -> {
-                var juego = new FXMLLoader(getClass().getResource("solitarioSpider.fxml"));
                 try{
                     VBox ventanaJuego = juego.load();
-                    var scene = new Scene(ventanaJuego);
-                    stage.close();
-                    stage.setScene(scene);
-                    stage.setResizable(false);
-                    stage.show();
-                    TableroSpider nuevoTablero = new TableroSpider();
-                    tablero = (Tablero) nuevoTablero;
                 }catch (IOException e){}
             });
 
         }catch (IOException ex){
         }
-
     }
 
-    //Cuando se encuentra el archivo datos.java
-    //Se llama esta funcion, que dependiendo que instancia del tablero sea
-    //Llama al constructor de juego iniciado de esa clase.
-    //ver si vale la pena aplicar Bridge.
-    boolean cargarJuegoGuardado(FileInputStream juego){
-
-        FileInputStream juegoGuardado = juego;
+    boolean cargarJuegoGuardado(FileInputStream juego, Stage stage){
+        FXMLLoader vistaJuego = new FXMLLoader(getClass().getResource("solitarioKlondike.fxml"));
         try {
-            Tablero nuevoTablero = Tablero.deserializar(juegoGuardado);
-            tablero = (Tablero) nuevoTablero;
+            stage.close();
+            Tablero nuevoTablero = Tablero.deserializar(juego);
+            tablero = nuevoTablero;
             if (nuevoTablero instanceof TableroKlondike){
-                juegoKlondike((TableroKlondike) nuevoTablero);
+                VistaTablero.setTableroKlondike((TableroKlondike) nuevoTablero);
+                VBox ventanaJuego = vistaJuego.load();
+                juegoKlondike(stage, ventanaJuego);
             }else{
                 juegoSpider((TableroSpider) nuevoTablero);
             }
@@ -125,19 +105,24 @@ public class Main extends Application {
         return true;
     }
 
-    // Implementar Lo que hace una vez creado un juego nuevo
-    public static void juegoKlondike(TableroKlondike tablero){
-
+    public static void juegoKlondike(Stage stage, VBox ventanaJuego){
+        Scene escena = new Scene(ventanaJuego);
+        stage.setScene(escena);
+        stage.setResizable(true);
+        stage.show();
     }
+
     public static void juegoSpider(TableroSpider tablero){
 
     }
 
-
     @Override
     public void stop(){
         try{
+            tablero = VistaTablero.getTablero();
             tablero.serializar(new FileOutputStream("datos.java"));
-        }catch (IOException ex){}
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
     }
 }

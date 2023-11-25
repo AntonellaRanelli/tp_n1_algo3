@@ -45,4 +45,13 @@ public class CartasApilable implements Serializable {
     }
 
     public List<Carta> getCartasOcultas(){return cartasOcultas;}
+
+    public int cantidadCartasOcultas(){
+        return cartasOcultas.size();
+    }
+
+    public int cantidadCartasReveladas(){
+        return cartasReveladas.size();
+    }
+
 }
