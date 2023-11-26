@@ -43,6 +43,12 @@ public class SpiderController {
         mazoPane.setOnMousePressed(this::clickMazo);
     }
 
+    private void setAtributosImagen(Pane pane, ImageView imagen){
+        imagen.fitWidthProperty().bind(pane.widthProperty());
+        imagen.fitHeightProperty().bind(pane.heightProperty());
+        pane.getChildren().add(imagen);
+    }
+
     private void clickMazo(MouseEvent event) {
         tablero.repartirMano();
         redibujarTablero();
@@ -122,12 +128,18 @@ public class SpiderController {
         List<Pane> cartas = new ArrayList<>();
         for(int i = 0; i < fundacion.getCartas().size(); i++) {
             Carta carta = fundacion.getCartas().get(i);
+            VistaCartaSpider vistaCarta = new VistaCartaSpider(carta);
+            ImageView revelada = new ImageView(vistaCarta.getImagenCarta());
+
+
             Pane cartaRevelada = new Pane();
             cartaRevelada.getStyleClass().add("carta");
-            cartaRevelada.setLayoutY(i*4);
-            Label textoInterno = new Label(carta.getNumero().obtenerValorCorto() + " ♠");
-            textoInterno.getStyleClass().add("texto-carta");
-            cartaRevelada.getChildren().add(textoInterno);
+            //cartaRevelada.setLayoutY(i*4);
+            //revelada.setTranslateY(posY+30);
+            setAtributosImagen(cartaRevelada, revelada);
+//            Label textoInterno = new Label(carta.getNumero().obtenerValorCorto() + " ♠");
+//            textoInterno.getStyleClass().add("texto-carta");
+//            cartaRevelada.getChildren().add(textoInterno);
             cartas.add(cartaRevelada);
         }
 
@@ -135,12 +147,16 @@ public class SpiderController {
     }
 
     private Pane obtenerCartaRevelada(int offsetY, Carta carta, List<Carta> cartasPrevias, Columna columna) {
+        VistaCartaSpider vistaCarta = new VistaCartaSpider(carta);
+        ImageView revelada = new ImageView(vistaCarta.getImagenCarta());
         Pane cartaRevelada = new Pane();
         cartaRevelada.getStyleClass().add("carta");
+
+        setAtributosImagen(cartaRevelada, revelada);
         cartaRevelada.setLayoutY(offsetY * 40);
-        Label textoInterno = new Label(carta.getNumero().obtenerValorCorto() + " ♠");
-        textoInterno.getStyleClass().add("texto-carta");
-        cartaRevelada.getChildren().add(textoInterno);
+//        Label textoInterno = new Label(carta.getNumero().obtenerValorCorto() + " ♠");
+//        textoInterno.getStyleClass().add("texto-carta");
+//        cartaRevelada.getChildren().add(textoInterno);
         cartaRevelada.setOnMouseClicked(event -> {
             if(cartaSeleccionada == null) {
                 cartaSeleccionada = carta;
