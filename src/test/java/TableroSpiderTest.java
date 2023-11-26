@@ -1,4 +1,5 @@
-import org.junit.Before;
+import Base.*;
+import Spider.TableroSpider;
 import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +77,7 @@ public class TableroSpiderTest {
 
 
 
-        assertTrue(tablero.seCumpleSecuenciaCompleta(columna));
+        assertTrue(tablero.seCumpleSecuenciaCompleta(columna.getCartasReveladas()));
     }
 
     @Test
@@ -88,7 +89,7 @@ public class TableroSpiderTest {
         columna.agregarCarta(new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.K));
         columna.agregarCarta(new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DIEZ));
 
-        assertFalse(tablero.seCumpleSecuenciaCompleta(columna));
+        assertFalse(tablero.seCumpleSecuenciaCompleta(columna.getCartasReveladas()));
     }
 
     @Test
@@ -100,7 +101,7 @@ public class TableroSpiderTest {
         columna.agregarCarta(new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.AS));
         columna.agregarCarta(new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DOS));
 
-        assertFalse(tablero.seCumpleSecuenciaCompleta(columna));
+        assertFalse(tablero.seCumpleSecuenciaCompleta(columna.getCartasReveladas()));
     }
 
     @Test
@@ -115,7 +116,7 @@ public class TableroSpiderTest {
             }
         }
 
-        assertFalse(tablero.seCumpleSecuenciaCompleta(columna));
+        assertFalse(tablero.seCumpleSecuenciaCompleta(columna.getCartasReveladas()));
     }
 
 

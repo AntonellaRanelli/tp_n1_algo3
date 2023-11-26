@@ -1,3 +1,6 @@
+import Base.*;
+import Klondike.ReglasKlondike;
+import Klondike.TableroKlondike;
 import org.junit.Test;
 
 import java.util.ArrayList;

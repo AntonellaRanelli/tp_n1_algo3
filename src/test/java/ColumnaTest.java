@@ -1,4 +1,5 @@
-import org.hamcrest.core.IsInstanceOf;
+import Base.Carta;
+import Base.Columna;
 import org.junit.Test;
 
 import java.util.ArrayList;

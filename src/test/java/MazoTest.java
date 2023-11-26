@@ -1,4 +1,6 @@
 import static org.junit.Assert.*;
+
+import Base.*;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class MazoTest {
     @Test
     public void testEntregarCarta() {
         // Prueba que entrega una carta correctamente
-        List<Carta> cartasReveladas = mazo.cartasReveladas;
+        List<Carta> cartasReveladas = mazo.getCartasReveladas();
         Carta carta = new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DOS);
         cartasReveladas.add(carta);
 
@@ -46,10 +48,10 @@ public class MazoTest {
     @Test
     public void testResetearMazo() {
         // Prueba que resetea el mazo correctamente
-        List<Carta> cartasReveladas = mazo.cartasReveladas;
+        List<Carta> cartasReveladas = mazo.getCartasReveladas();
         cartasReveladas.add(new Carta(ColorCarta.ROJO, Palo.CORAZON, Valor.AS));
         cartasReveladas.add(new Carta(ColorCarta.NEGRO, Palo.PICAS, Valor.DOS));
-        List<Carta> cartasOcultas = mazo.cartasOcultas;
+        List<Carta> cartasOcultas = mazo.getCartasOcultas();
 
         mazo.resetearMazo();
 
