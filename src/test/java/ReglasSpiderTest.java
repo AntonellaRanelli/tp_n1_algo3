@@ -1,3 +1,4 @@
+import static org.junit.Assert.*;
 import Base.*;
 import Spider.ReglasSpider;
 import org.junit.Test;
@@ -117,7 +118,5 @@ public class ReglasSpiderTest {
         boolean resultado = reglas.validarExistenciaCarta(carta);
         assertFalse(resultado);
     }
-
-
 
 }
