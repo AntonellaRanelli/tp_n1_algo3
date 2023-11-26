@@ -1,13 +1,20 @@
+package Klondike;
+
 import Base.*;
-import Klondike.TableroKlondike;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.util.List;
 
-public class VistaTablero {
+public class ControladorTablero {
     private static TableroKlondike tablero;
     @FXML
     Pane contenedor;
@@ -218,7 +225,7 @@ public class VistaTablero {
 
                 reiniciarVariables();
                 if(tablero.verificarJuegoGanado()){
-
+                    manejarJuegoGanado();
                 }
                 mostrarCartas();
             });
@@ -245,5 +252,9 @@ public class VistaTablero {
 
     public static Tablero getTablero(){
         return (Tablero) tablero;
+    }
+
+    private void manejarJuegoGanado() {
+
     }
 }

@@ -1,4 +1,5 @@
 import Base.*;
+import Klondike.ControladorTablero;
 import Klondike.TableroKlondike;
 import Spider.TableroSpider;
 import javafx.application.Application;
@@ -67,7 +68,7 @@ public class Main extends Application {
                 try {
                     stage.close();
                     TableroKlondike nuevoTablero = new TableroKlondike();
-                    VistaTablero.setTableroKlondike(nuevoTablero);
+                    ControladorTablero.setTableroKlondike(nuevoTablero);
                     tablero = (Tablero) nuevoTablero;
                     VBox ventanaJuego = juego.load();
                     juegoKlondike(stage, ventanaJuego);
@@ -93,7 +94,7 @@ public class Main extends Application {
             Tablero nuevoTablero = Tablero.deserializar(juego);
             tablero = nuevoTablero;
             if (nuevoTablero instanceof TableroKlondike){
-                VistaTablero.setTableroKlondike((TableroKlondike) nuevoTablero);
+                ControladorTablero.setTableroKlondike((TableroKlondike) nuevoTablero);
                 VBox ventanaJuego = vistaJuego.load();
                 juegoKlondike(stage, ventanaJuego);
             }else{
@@ -119,7 +120,7 @@ public class Main extends Application {
     @Override
     public void stop(){
         try{
-            tablero = VistaTablero.getTablero();
+            tablero = ControladorTablero.getTablero();
             tablero.serializar(new FileOutputStream("datos.java"));
         }catch (IOException ex){
             ex.printStackTrace();

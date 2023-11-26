@@ -40,7 +40,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox prefHeight="757.0" prefWidth="1000.0" style="-fx-background-color: #005500"
-      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="VistaTablero">
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Klondike.ControladorTablero">
     <MenuBar prefHeight="0.0" prefWidth="564.0" VBox.vgrow="NEVER">
         <menus>
             <Menu mnemonicParsing="false" text="File">
@@ -72,28 +72,23 @@
                     <Pane prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" opacity="0.1"/>
                 </Pane>
             </Pane>
+            <Pane layoutY="261.0">
+                <Pane layoutX="20.0" prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.2"/>
+                <Pane layoutX="161.0" prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.2"/>
+                <Pane layoutX="300.0" prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.2"/>
+                <Pane layoutX="439.0" prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.2"/>
+                <Pane layoutX="587.0" prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.2"/>
+                <Pane layoutX="730.0" prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.2"/>
+                <Pane layoutX="863.0" prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.2"/>
+            </Pane>
             <Pane fx:id="columnasPane" layoutY="230.0">
-                <Pane layoutX="20.0" prefHeight="173.0" prefWidth="117.0">
-                    <Pane prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.1"/>
-                </Pane>
-                <Pane layoutX="161.0" prefHeight="173.0" prefWidth="117.0">
-                    <Pane prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.1"/>
-                </Pane>
-                <Pane layoutX="300.0" prefHeight="173.0" prefWidth="117.0">
-                    <Pane prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.1"/>
-                </Pane>
-                <Pane layoutX="439.0" prefHeight="173.0" prefWidth="117.0">
-                    <Pane prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.1"/>
-                </Pane>
-                <Pane layoutX="587.0" prefHeight="173.0" prefWidth="117.0">
-                    <Pane prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.1"/>
-                </Pane>
-                <Pane layoutX="730.0" prefHeight="173.0" prefWidth="117.0">
-                    <Pane prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.1"/>
-                </Pane>
-                <Pane layoutX="863.0" prefHeight="173.0" prefWidth="117.0">
-                    <Pane prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.1"/>
-                </Pane>
+                <Pane layoutX="20.0" prefHeight="173.0" prefWidth="117.0"/>
+                <Pane layoutX="161.0" prefHeight="173.0" prefWidth="117.0"/>
+                <Pane layoutX="300.0" prefHeight="173.0" prefWidth="117.0"/>
+                <Pane layoutX="439.0" prefHeight="173.0" prefWidth="117.0"/>
+                <Pane layoutX="587.0" prefHeight="173.0" prefWidth="117.0"/>
+                <Pane layoutX="730.0" prefHeight="173.0" prefWidth="117.0"/>
+                <Pane layoutX="863.0" prefHeight="173.0" prefWidth="117.0"/>
             </Pane>
         </children>
     </AnchorPane>

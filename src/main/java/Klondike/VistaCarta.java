@@ -1,3 +1,5 @@
+package Klondike;
+
 import Base.Carta;
 import javafx.scene.image.Image;
 
