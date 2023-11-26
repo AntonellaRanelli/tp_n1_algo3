@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 public class TableroSpider extends Tablero {
-    private ReglasSpider reglas;
+    private ReglasSpider reglas = new ReglasSpider();;
 
     public TableroSpider() { //Constructor
         iniciarJuego();
@@ -28,6 +28,7 @@ public class TableroSpider extends Tablero {
         baraja = crearCartas();
         columnas = crearColumnas();
         fundaciones = crearFundaciones();
+
         Collections.shuffle(baraja, random);
         repartirCartas();
     }
@@ -65,10 +66,21 @@ public class TableroSpider extends Tablero {
         return fundacionesAuxiliar;
     }
 
+    protected void repartirMano() { //Reparte una carta a cada columna
+        Columna columaActual;
+        int cantidadColumnas = columnas.size();
+
+        for (int i=0; i<cantidadColumnas; i++) {
+            columaActual = columnas.get(i);
+            if (!mazo.cartasOcultasVacio()) {
+                Carta cartaRevelada = mazo.entregarCartaOculta();
+                columaActual.agregarCarta(cartaRevelada);
+            }
+        }
+    }
 
     @Override
     protected void repartirCartas() { //reparte las cartas y crea el mazo de cartas ocultas
-        List<Carta> listaAuxiliar = new ArrayList<>();
         Columna columaActual;
         int cartasPorColumna = 6;
         int cantidadColumnas = columnas.size();
@@ -80,23 +92,19 @@ public class TableroSpider extends Tablero {
                 cartasPorColumna = 5;
 
             for (int u = 0; u < cartasPorColumna - 1; u++) {
-
                 if (!baraja.isEmpty()) {
                     Carta cartaOculta = baraja.remove(0);
-                    listaAuxiliar.add(cartaOculta);
+                    columaActual.agregarCartaOculta(cartaOculta);
                 }
             }
-            columaActual.setCartasOcultas(listaAuxiliar);
 
             // Asignar una carta revelada
             if (!baraja.isEmpty()) {
                 Carta cartaRevelada = baraja.remove(0);
                 columaActual.agregarCarta(cartaRevelada);
             }
-
-            listaAuxiliar.clear();
-            cartasPorColumna++;
         }
+
 
         // Agregar las cartas restantes al mazo
         mazo.setCartasOcultas(new ArrayList<>(baraja));
@@ -122,7 +130,7 @@ public class TableroSpider extends Tablero {
         int tamanoLista = cartasDeColumna.size()-1;
         int cantidadUltimasCartas = 12;
 
-        if(seCumpleSecuenciaCompleta(columna))
+        if(seCumpleSecuenciaCompleta(columna.getCartasReveladas()))
         {
 
             for(int i = tamanoLista; i > tamanoLista - cantidadUltimasCartas ; i--)
@@ -141,9 +149,39 @@ public class TableroSpider extends Tablero {
         return false;
     }
 
+    public boolean moverCartasAFundacion(Columna columna, List<Carta> cartasDeColumna) {
+    // Agregada función para el caso en el que se complete como parte de una columna con más cartas que las 13 del patrón
 
-    public boolean seCumpleSecuenciaCompleta(Columna columna) {
-        List<Carta> cartas = columna.getCartasReveladas();
+        List<Carta> cartasOrdenadas = new ArrayList<>();
+
+        int tamanoLista = cartasDeColumna.size()-1;
+        int cantidadUltimasCartas = 12;
+
+        if(seCumpleSecuenciaCompleta(cartasDeColumna))
+        {
+            for(int i = tamanoLista; i >= tamanoLista - cantidadUltimasCartas ; i--)
+            {
+                Carta cartaAux = cartasDeColumna.get(i);
+                cartasOrdenadas.add(cartaAux);
+            }
+
+            columna.sacarCartas(cartasDeColumna);
+            int i = 0;
+            while( i < fundaciones.size()) {
+                Fundacion fundacion = fundaciones.get(i);
+                if(fundacion.fundacionVacia()) {
+                    fundacion.agregarCarta(cartasOrdenadas);
+                    break;
+                }
+                i++;
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean seCumpleSecuenciaCompleta(List<Carta> cartas) {
 
         if (cartas.size() < 13) {
             return false;
@@ -194,11 +232,17 @@ public class TableroSpider extends Tablero {
 
         if(reglas.validarMovimientoEntreColumnas(cartasAMover, ultimaCartaRCD))
         {
-            columnaDestino.agregarCarta(columnaDestino.getCartasReveladas());
-            columnaOrigen.sacarCartas(cartasAMover);
+            columnaDestino.agregarCarta(cartasAMover);
+            boolean deberiaRevelar = columnaOrigen.cantidadCartasReveladas() - cartasAMover.size() == 0;
+            columnaOrigen.sacarCartas(cartasAMover, deberiaRevelar);
             return true;
         }
         return false;
+    }
+
+    public boolean finalizarJuego()
+    {
+        return reglas.verificarJuegoGanado(fundaciones);
     }
 
 }
