@@ -38,7 +38,6 @@ public class SpiderController {
     Columna columnaSeleccionada;
 
     public void initialize() {
-        tablero.iniciarJuego();
         redibujarTablero();
 
         mazoPane.setOnMousePressed(this::clickMazo);
