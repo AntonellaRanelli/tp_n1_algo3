@@ -1,10 +1,12 @@
 package Klondike;
 
 import Base.*;
+import com.sun.tools.javac.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -191,6 +193,13 @@ public class ControladorTablero {
                         tablero.moverMazoAColumna(mazoTablero, finalColumnaActual);
                         reiniciarVariables();
                         mostrarCartas();
+                        return;
+                    }
+
+                    if (cartaSeleccionada != null && fundacionActual != null){
+                        tablero.moverFundacionAColumna(fundacionActual, finalColumnaActual);
+                        reiniciarVariables();
+                        mostrarCartas();
                     }
                 });
             }
@@ -205,29 +214,49 @@ public class ControladorTablero {
         {
             Fundacion fundacion = tablero.getFundacionPorIndice(i);
             pane = (Pane) contenedor.lookup("#fundacion"+i);
-
+            pane.getChildren().clear();
             if (!fundacion.fundacionVacia()) {
                 VistaCarta vistaCartaFundacion = new VistaCarta(fundacion.obtenerUltimaCarta());
                 ImageView cartaFundacion = new ImageView(vistaCartaFundacion.getImagenCarta());
                 setAtributosImagen(pane, cartaFundacion);
+
+                cartaFundacion.setOnMousePressed(event -> {
+
+                    if (cartaSeleccionada == null && fundacionActual == null){
+                        cartaSeleccionada = vistaCartaFundacion.getCarta();
+                        fundacionActual = fundacion;
+                        cartaFundacion.setOpacity(0.8);
+                        return;
+                    }
+
+                    if (fundacionActual != null){
+                        reiniciarVariables();
+                        mostrarCartas();
+                    }
+                });
             }
 
             pane.setOnMousePressed(event -> {
                 if (cartaSeleccionada != null && columnaSeleccionada != null){
                     fundacionActual = fundacion;
                     tablero.moverColumnaAFundacion(columnaSeleccionada, fundacionActual);
+                    reiniciarVariables();
+                    mostrarCartas();
+                    if(tablero.verificarJuegoGanado()){
+                        manejarJuegoGanado();
+                    }
+                    return;
                 }
 
                 if (cartaSeleccionada!=null && mazoTablero!= null){
                     fundacionActual = fundacion;
                     tablero.moverMazoAFundacion(mazoTablero, fundacion);
+                    reiniciarVariables();
+                    mostrarCartas();
+                    if(tablero.verificarJuegoGanado()){
+                        manejarJuegoGanado();
+                    }
                 }
-
-                reiniciarVariables();
-                if(tablero.verificarJuegoGanado()){
-                    manejarJuegoGanado();
-                }
-                mostrarCartas();
             });
         }
     }
@@ -255,6 +284,33 @@ public class ControladorTablero {
     }
 
     private void manejarJuegoGanado() {
+        Pane panelVictoria = new Pane();
+        panelVictoria.getStyleClass().add("panel-victoria");
+        panelVictoria.setLayoutY(20);
+        panelVictoria.setLayoutX(40);
+        Label textoVictoria = new Label("¡Ganaste! \uD83C\uDF89");
+        textoVictoria.getStyleClass().add("texto-victoria");
+        textoVictoria.setLayoutY(440);
+        textoVictoria.setLayoutX(650);
+        Button botonVolver = new Button();
+        botonVolver.setText("Volver al menú");
 
+        botonVolver.setOnAction(actionEvent -> {
+            try {
+                var menuLoader = new FXMLLoader(getClass().getResource("menu.fxml"));
+                VBox ventanaSeleccion = menuLoader.load();
+                Stage stage = (Stage) contenedor.getScene().getWindow();
+                var sceneSeleccion = new Scene(ventanaSeleccion);
+                stage.close();
+                stage.setScene(sceneSeleccion);
+                stage.setResizable(false);
+                stage.show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        panelVictoria.getChildren().add(textoVictoria);
+
+        contenedor.getChildren().add(panelVictoria);
     }
 }

@@ -120,10 +120,11 @@ public class Main extends Application {
         return true;
     }
 
-    public static void juegoKlondike(Stage stage, VBox ventanaJuego){
+    private void juegoKlondike(Stage stage, VBox ventanaJuego){
         Scene escena = new Scene(ventanaJuego);
         stage.setScene(escena);
         stage.setResizable(true);
+        escena.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.show();
     }
 

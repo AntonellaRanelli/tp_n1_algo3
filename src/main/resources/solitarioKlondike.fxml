@@ -58,20 +58,21 @@
             <Pane layoutX="20.0" opacity="0.1"  layoutY="24.0"  prefHeight="194.0" prefWidth="141.0"  style="-fx-background-color: black"/>
             <Pane fx:id="mazo" layoutX="20.0" layoutY="24.0"  prefHeight="194.0" prefWidth="141.0"/>
             <Pane fx:id="descarte" layoutX="171.0" layoutY="24.0" prefHeight="194.0" prefWidth="141.0"/>
-            <Pane fx:id="paneFundacion" layoutX="353" layoutY="24">
-                <Pane fx:id="fundacion0" prefHeight="194.0" prefWidth="141.0">
-                    <Pane prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" opacity="0.1"/>
-                </Pane>
-                <Pane fx:id="fundacion1" layoutX="153.0" prefHeight="194.0" prefWidth="141.0">
-                    <Pane prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" opacity="0.1"/>
-                </Pane>
-                <Pane fx:id="fundacion2" layoutX="306.0" prefHeight="194.0" prefWidth="141.0">
-                    <Pane prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" opacity="0.1"/>
-                </Pane>
-                <Pane fx:id="fundacion3" layoutX="456.0" prefHeight="194.0" prefWidth="141.0">
-                    <Pane prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" opacity="0.1"/>
-                </Pane>
+
+            <Pane layoutX="353" layoutY="24">
+                <Pane prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" opacity="0.2"/>
+                <Pane layoutX="153.0" prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" opacity="0.2"/>
+                <Pane layoutX="306.0" prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" opacity="0.2"/>
+                <Pane layoutX="456.0" prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" opacity="0.2"/>
             </Pane>
+
+            <Pane fx:id="paneFundacion" layoutX="353" layoutY="24">
+                <Pane fx:id="fundacion0" prefHeight="194.0" prefWidth="141.0"/>
+                <Pane fx:id="fundacion1" layoutX="153.0" prefHeight="194.0" prefWidth="141.0"/>
+                <Pane fx:id="fundacion2" layoutX="306.0" prefHeight="194.0" prefWidth="141.0"/>
+                <Pane fx:id="fundacion3" layoutX="456.0" prefHeight="194.0" prefWidth="141.0"/>
+            </Pane>
+
             <Pane layoutY="261.0">
                 <Pane layoutX="20.0" prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.2"/>
                 <Pane layoutX="161.0" prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.2"/>
