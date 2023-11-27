@@ -125,7 +125,7 @@ public class ControladorTablero {
             pane.setOnMousePressed(event -> {
                 if (finalPane.getChildren().isEmpty()){
                     if (cartasAMover!= null) {
-                        if (mazoTablero == null && cartasAMover.getFirst().getNumero() == Valor.K) {
+                        if (mazoTablero == null && cartasAMover.get(0).getNumero() == Valor.K) {
                             columnaDestino = finalColumnaActual3;
                             tablero.moverColumnaAColumna(columnaSeleccionada, columnaDestino, cartasAMover);
                             reiniciarVariables();
