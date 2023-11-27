@@ -20,22 +20,21 @@ import java.util.Objects;
 
 public class SpiderController {
     @FXML
-    Pane anchorPane;
+    private Pane anchorPane;
 
     @FXML
-    Pane mazoPane;
+    private Pane mazoPane;
 
     @FXML
-    Pane columnasPane;
+    private Pane columnasPane;
 
     @FXML
-    Pane fundacionesPane;
+    private Pane fundacionesPane;
 
-    //TableroSpider tablero = new TableroSpider();
     private static TableroSpider tablero;
-    Carta cartaSeleccionada;
-    List<Carta> cartasIncluidasEnSeleccionada;
-    Columna columnaSeleccionada;
+    private Carta cartaSeleccionada;
+    private List<Carta> cartasIncluidasEnSeleccionada;
+    private Columna columnaSeleccionada;
 
     public void initialize() {
         redibujarTablero();

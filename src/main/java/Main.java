@@ -97,7 +97,7 @@ public class Main extends Application {
     }
 
     boolean cargarJuegoGuardado(FileInputStream juego, Stage stage){
-        //FXMLLoader vistaJuego = new FXMLLoader(getClass().getResource("solitarioKlondike.fxml"));
+
         FXMLLoader juegoKlondikeFXML = new FXMLLoader(getClass().getResource("solitarioKlondike.fxml"));
         FXMLLoader juegoSpiderFXML = new FXMLLoader(getClass().getResource("solitarioSpider.fxml"));
         try {
@@ -139,7 +139,6 @@ public class Main extends Application {
     public void stop(){
         try{
             if (tablero instanceof TableroKlondike) {
-                //falta agregar para que se serialice el otro modo tambien esto no me esta funcionando
                 tablero = ControladorTablero.getTablero();
             } else{
                 tablero = SpiderController.getTablero();

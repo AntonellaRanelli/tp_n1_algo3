@@ -17,20 +17,20 @@ import java.util.List;
 public class ControladorTablero {
     private static TableroKlondike tablero;
     @FXML
-    Pane contenedor;
+    private Pane contenedor;
     @FXML
-    Pane columnasPane;
+    private Pane columnasPane;
     @FXML
-    Pane mazo;
+    private Pane mazo;
     @FXML
-    Pane descarte;
+    private Pane descarte;
 
-    Carta cartaSeleccionada = null;
-    Columna columnaSeleccionada = null;
-    Columna columnaDestino = null;
-    Fundacion fundacionActual = null;
-    Mazo mazoTablero = null;
-    List<Carta> cartasAMover = null;
+    private Carta cartaSeleccionada = null;
+    private Columna columnaSeleccionada = null;
+    private Columna columnaDestino = null;
+    private Fundacion fundacionActual = null;
+    private Mazo mazoTablero = null;
+    private List<Carta> cartasAMover = null;
 
     public void initialize(){
         mostrarCartas();
