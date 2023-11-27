@@ -4,6 +4,7 @@ import Base.Carta;
 import Base.CartasApilable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Mazo extends CartasApilable {
@@ -42,7 +43,8 @@ public class Mazo extends CartasApilable {
     }
 
     public void resetearMazo() { //Vacia la lista de cartasReveladas y las agrega a cartas ocultas
-        cartasOcultas.addAll(cartasReveladas);
+        for(Carta carta: cartasReveladas)
+            cartasOcultas.add(0, carta);
         cartasReveladas.clear();
     }
 

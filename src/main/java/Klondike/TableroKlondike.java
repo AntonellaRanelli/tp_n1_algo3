@@ -31,6 +31,7 @@ public class TableroKlondike extends Tablero {
         fundaciones = crearFundaciones();
         Collections.shuffle(baraja, random);
         repartirCartas();
+        reglas = new ReglasKlondike();
     }
 
     @Override
@@ -76,13 +77,13 @@ public class TableroKlondike extends Tablero {
     @Override
     protected void repartirCartas() { //reparte las carta entre las columnas el resto va al mazo
         int cartasPorColumna = 1;
-        List<Carta> listaAuxiliar = new ArrayList<>();
 
         // Reiniciar el mazo
         mazo.resetearMazo();
 
         for (Columna columna : columnas) {
             //Arreglo el orden en que se reparten las cartas, issue 6
+            List<Carta> listaAuxiliar = new ArrayList<>();
 
             // Asignar las cartas ocultas
             for (int i = 0; i < cartasPorColumna - 1; i++) {
@@ -98,8 +99,6 @@ public class TableroKlondike extends Tablero {
                 Carta cartaRevelada = baraja.remove(0);
                 columna.agregarCarta(cartaRevelada);
             }
-
-            listaAuxiliar.clear();
             cartasPorColumna++;
         }
 
@@ -189,11 +188,15 @@ public class TableroKlondike extends Tablero {
 
         if(reglas.validarMovimientoEntreColumnas(cartasAMover, ultimaCartaRCD))
         {
-            columnaDestino.agregarCarta(columnaDestino.getCartasReveladas());
+            columnaDestino.agregarCarta(cartasAMover);
             columnaOrigen.sacarCartas(cartasAMover);
             return true;
         }
         return false;
+    }
+
+    public boolean verificarJuegoGanado(){
+        return reglas.verificarJuegoGanado(fundaciones);
     }
 
 }

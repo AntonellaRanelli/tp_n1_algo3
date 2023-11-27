@@ -1,5 +1,6 @@
 package Base;
 
+import java.awt.*;
 import java.io.Serializable;
 
 public class Carta implements Serializable {

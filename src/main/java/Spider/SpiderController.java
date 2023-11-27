@@ -1,6 +1,7 @@
 package Spider;
 
 import Base.*;
+import Klondike.TableroKlondike;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -30,8 +31,8 @@ public class SpiderController {
     @FXML
     Pane fundacionesPane;
 
-    TableroSpider tablero = new TableroSpider();
-
+    //TableroSpider tablero = new TableroSpider();
+    private static TableroSpider tablero;
     Carta cartaSeleccionada;
     List<Carta> cartasIncluidasEnSeleccionada;
     Columna columnaSeleccionada;
@@ -43,6 +44,13 @@ public class SpiderController {
         mazoPane.setOnMousePressed(this::clickMazo);
     }
 
+    public static void setTableroSpider(TableroSpider tableroSpider){
+        tablero = tableroSpider;
+    }
+
+    public static Tablero getTablero(){
+        return (Tablero) tablero;
+    }
     private void setAtributosImagen(Pane pane, ImageView imagen){
         imagen.fitWidthProperty().bind(pane.widthProperty());
         imagen.fitHeightProperty().bind(pane.heightProperty());
@@ -110,8 +118,8 @@ public class SpiderController {
 
     private ImageView obtenerCartaOculta(int offsetY) {
         ImageView cartaOculta = new ImageView();
-        cartaOculta.setFitWidth(141.0);
-        cartaOculta.setFitHeight(194.0);
+        cartaOculta.setFitWidth(117.0);
+        cartaOculta.setFitHeight(173.0);
         cartaOculta.setLayoutY(offsetY * 40);
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Large/999.png")));
         cartaOculta.setImage(image);
@@ -133,13 +141,11 @@ public class SpiderController {
 
 
             Pane cartaRevelada = new Pane();
+            cartaRevelada.setPrefHeight(194.0);
+            cartaRevelada.setPrefWidth(141.0);
             cartaRevelada.getStyleClass().add("carta");
-            //cartaRevelada.setLayoutY(i*4);
-            //revelada.setTranslateY(posY+30);
             setAtributosImagen(cartaRevelada, revelada);
-//            Label textoInterno = new Label(carta.getNumero().obtenerValorCorto() + " ♠");
-//            textoInterno.getStyleClass().add("texto-carta");
-//            cartaRevelada.getChildren().add(textoInterno);
+
             cartas.add(cartaRevelada);
         }
 
@@ -150,18 +156,16 @@ public class SpiderController {
         VistaCartaSpider vistaCarta = new VistaCartaSpider(carta);
         ImageView revelada = new ImageView(vistaCarta.getImagenCarta());
         Pane cartaRevelada = new Pane();
-        cartaRevelada.getStyleClass().add("carta");
-
+        cartaRevelada.setPrefHeight(173.0);
+        cartaRevelada.setPrefWidth(117.0);
         setAtributosImagen(cartaRevelada, revelada);
         cartaRevelada.setLayoutY(offsetY * 40);
-//        Label textoInterno = new Label(carta.getNumero().obtenerValorCorto() + " ♠");
-//        textoInterno.getStyleClass().add("texto-carta");
-//        cartaRevelada.getChildren().add(textoInterno);
-        cartaRevelada.setOnMouseClicked(event -> {
+        cartaRevelada.setOnMousePressed(event -> {
             if(cartaSeleccionada == null) {
                 cartaSeleccionada = carta;
                 columnaSeleccionada = columna;
                 cartasIncluidasEnSeleccionada = cartasPrevias;
+                cartaRevelada.setOpacity(0.8);
                 cartaRevelada.getStyleClass().add("carta-seleccionada");
                 return;
             } else if(tablero.moverColumnaAColumna( columnaSeleccionada, columna, cartasIncluidasEnSeleccionada)) {

@@ -5,9 +5,9 @@ import java.io.*;
         import java.util.List;
 
 public abstract class Tablero implements Serializable {
-    protected List<Carta> baraja = new ArrayList<>();
-    protected List<Columna> columnas = new ArrayList<>();
-    protected List<Fundacion> fundaciones = new ArrayList<>();
+    protected List<Carta> baraja;
+    protected List<Columna> columnas;
+    protected List<Fundacion> fundaciones;
     protected Mazo mazo = new Mazo( new ArrayList<>(), new ArrayList<>());
 
     protected abstract void iniciarJuego();
@@ -37,6 +37,7 @@ public abstract class Tablero implements Serializable {
     public void serializar(OutputStream tablero) throws IOException {
         ObjectOutputStream datoAGuardar = new ObjectOutputStream(tablero);
         datoAGuardar.writeObject(this);
+        datoAGuardar.close();
     }
 
     public static Tablero deserializar(InputStream entrada) throws IOException, ClassNotFoundException {

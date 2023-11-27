@@ -39,34 +39,57 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="ventada" prefHeight="757.0" prefWidth="1000.0" style="-fx-background-color: #005500" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-  <children>
+<VBox prefHeight="757.0" prefWidth="1000.0" style="-fx-background-color: #005500"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Klondike.ControladorTablero">
     <MenuBar prefHeight="0.0" prefWidth="564.0" VBox.vgrow="NEVER">
-      <menus>
-        <Menu mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
-          </items>
-        </Menu>
-      </menus>
+        <menus>
+            <Menu mnemonicParsing="false" text="File">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="New"/>
+                    <MenuItem mnemonicParsing="false" text="Open…"/>
+                    <MenuItem mnemonicParsing="false" text="Quit"/>
+                </items>
+            </Menu>
+        </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="752.0" prefWidth="1022.0" VBox.vgrow="ALWAYS">
-         <children>
-            <Pane fx:id="pepe" layoutX="20.0" layoutY="24.0" opacity="0.2" prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" />
-            <Pane layoutX="171.0" layoutY="24.0" opacity="0.2" prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" />
-            <Pane layoutX="353.0" layoutY="24.0" opacity="0.2" prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" />
-            <Pane layoutX="506.0" layoutY="24.0" opacity="0.2" prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" />
-            <Pane layoutX="659.0" layoutY="24.0" opacity="0.2" prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" />
-            <Pane layoutX="813.0" layoutY="24.0" opacity="0.2" prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" />
-            <Pane layoutX="45.0" layoutY="282.0" opacity="0.2" prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" />
-            <Pane layoutX="198.0" layoutY="282.0" opacity="0.2" prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" />
-            <Pane layoutX="353.0" layoutY="282.0" opacity="0.2" prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" />
-            <Pane layoutX="506.0" layoutY="282.0" opacity="0.2" prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" />
-            <Pane layoutX="659.0" layoutY="282.0" opacity="0.2" prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" />
-            <Pane layoutX="813.0" layoutY="282.0" opacity="0.2" prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" />
-         </children>
+    <AnchorPane fx:id="contenedor" maxHeight="-1.0" maxWidth="-1.0" prefHeight="752.0" prefWidth="1022.0"
+                VBox.vgrow="ALWAYS">
+        <children>
+            <Pane layoutX="20.0" opacity="0.1"  layoutY="24.0"  prefHeight="194.0" prefWidth="141.0"  style="-fx-background-color: black"/>
+            <Pane fx:id="mazo" layoutX="20.0" layoutY="24.0"  prefHeight="194.0" prefWidth="141.0"/>
+            <Pane fx:id="descarte" layoutX="171.0" layoutY="24.0" prefHeight="194.0" prefWidth="141.0"/>
+            <Pane fx:id="paneFundacion" layoutX="353" layoutY="24">
+                <Pane fx:id="fundacion0" prefHeight="194.0" prefWidth="141.0">
+                    <Pane prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" opacity="0.1"/>
+                </Pane>
+                <Pane fx:id="fundacion1" layoutX="153.0" prefHeight="194.0" prefWidth="141.0">
+                    <Pane prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" opacity="0.1"/>
+                </Pane>
+                <Pane fx:id="fundacion2" layoutX="306.0" prefHeight="194.0" prefWidth="141.0">
+                    <Pane prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" opacity="0.1"/>
+                </Pane>
+                <Pane fx:id="fundacion3" layoutX="456.0" prefHeight="194.0" prefWidth="141.0">
+                    <Pane prefHeight="194.0" prefWidth="141.0" style="-fx-background-color: black" opacity="0.1"/>
+                </Pane>
+            </Pane>
+            <Pane layoutY="261.0">
+                <Pane layoutX="20.0" prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.2"/>
+                <Pane layoutX="161.0" prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.2"/>
+                <Pane layoutX="300.0" prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.2"/>
+                <Pane layoutX="439.0" prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.2"/>
+                <Pane layoutX="587.0" prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.2"/>
+                <Pane layoutX="730.0" prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.2"/>
+                <Pane layoutX="863.0" prefHeight="173.0" prefWidth="117.0" style="-fx-background-color: black" opacity="0.2"/>
+            </Pane>
+            <Pane fx:id="columnasPane" layoutY="230.0">
+                <Pane layoutX="20.0" prefHeight="173.0" prefWidth="117.0"/>
+                <Pane layoutX="161.0" prefHeight="173.0" prefWidth="117.0"/>
+                <Pane layoutX="300.0" prefHeight="173.0" prefWidth="117.0"/>
+                <Pane layoutX="439.0" prefHeight="173.0" prefWidth="117.0"/>
+                <Pane layoutX="587.0" prefHeight="173.0" prefWidth="117.0"/>
+                <Pane layoutX="730.0" prefHeight="173.0" prefWidth="117.0"/>
+                <Pane layoutX="863.0" prefHeight="173.0" prefWidth="117.0"/>
+            </Pane>
+        </children>
     </AnchorPane>
-  </children>
 </VBox>

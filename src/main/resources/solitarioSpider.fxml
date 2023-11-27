@@ -91,28 +91,28 @@
 
 
 
-        <Pane fx:id="columnasPane" layoutY="282.0">
-            <Pane layoutX="20.0" prefHeight="194.0" prefWidth="141.0"
+        <Pane fx:id="columnasPane" layoutY="230.0">
+            <Pane layoutX="20.0" prefHeight="173.0" prefWidth="117.0"
                   style="-fx-background-color: rgba(0,0,0,0.2)">
             </Pane>
-            <Pane layoutX="181.0" prefHeight="194.0" prefWidth="141.0"
+            <Pane layoutX="181.0" prefHeight="173.0" prefWidth="117.0"
                   style="-fx-background-color: rgba(0,0,0,0.2)"/>
-            <Pane layoutX="342.0" prefHeight="194.0" prefWidth="141.0"
+            <Pane layoutX="342.0" prefHeight="173.0" prefWidth="117.0"
                   style="-fx-background-color: rgba(0,0,0,0.2)"/>
-            <Pane layoutX="503.0" prefHeight="194.0" prefWidth="141.0"
+            <Pane layoutX="503.0" prefHeight="173.0" prefWidth="117.0"
                   style="-fx-background-color: rgba(0,0,0,0.2)"/>
-            <Pane layoutX="664.0" prefHeight="194.0" prefWidth="141.0"
+            <Pane layoutX="664.0" prefHeight="173.0" prefWidth="117.0"
                   style="-fx-background-color: rgba(0,0,0,0.2)"/>
-            <Pane layoutX="825.0" prefHeight="194.0" prefWidth="141.0"
+            <Pane layoutX="825.0" prefHeight="173.0" prefWidth="117.0"
                   style="-fx-background-color: rgba(0,0,0,0.2)"/>
-            <Pane layoutX="986.0" prefHeight="194.0" prefWidth="141.0"
+            <Pane layoutX="986.0" prefHeight="173.0" prefWidth="117.0"
                   style="-fx-background-color: rgba(0,0,0,0.2)"/>
-            <Pane layoutX="1147.0" prefHeight="194.0" prefWidth="141.0"
+            <Pane layoutX="1147.0" prefHeight="173.0" prefWidth="117.0"
                   style="-fx-background-color: rgba(0,0,0,0.2)"/>
-            <Pane layoutX="1308.0" prefHeight="194.0" prefWidth="141.0"
+            <Pane layoutX="1308.0" prefHeight="173.0" prefWidth="117.0"
                   style="-fx-background-color: rgba(0,0,0,0.2)"/>
-            <Pane layoutX="1469.0" prefHeight="194.0"
-                  prefWidth="141.0" style="-fx-background-color: rgba(0,0,0,0.2)"/>
+            <Pane layoutX="1469.0" prefHeight="173.0"
+                  prefWidth="117.0" style="-fx-background-color: rgba(0,0,0,0.2)"/>
         </Pane>
     </AnchorPane>
 </VBox>
