@@ -1,7 +1,6 @@
 package Spider;
 
 import Base.*;
-import Klondike.TableroKlondike;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -50,8 +49,6 @@ public class SpiderController {
         return (Tablero) tablero;
     }
     private void setAtributosImagen(Pane pane, ImageView imagen){
-        imagen.fitWidthProperty().bind(pane.widthProperty());
-        imagen.fitHeightProperty().bind(pane.heightProperty());
         pane.getChildren().add(imagen);
     }
 
@@ -116,9 +113,9 @@ public class SpiderController {
 
     private ImageView obtenerCartaOculta(int offsetY) {
         ImageView cartaOculta = new ImageView();
-        cartaOculta.setFitWidth(117.0);
-        cartaOculta.setFitHeight(173.0);
-        cartaOculta.setLayoutY(offsetY * 40);
+        cartaOculta.setFitWidth(101.75);
+        cartaOculta.setFitHeight(140.0);
+        cartaOculta.setLayoutY(offsetY * 23);
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Large/999.png")));
         cartaOculta.setImage(image);
         cartaOculta.setOnMouseClicked(event -> {
@@ -139,9 +136,8 @@ public class SpiderController {
 
 
             Pane cartaRevelada = new Pane();
-            cartaRevelada.setPrefHeight(194.0);
-            cartaRevelada.setPrefWidth(141.0);
-            cartaRevelada.getStyleClass().add("carta");
+            cartaRevelada.setPrefHeight(140);
+            cartaRevelada.setPrefWidth(101.75);
             setAtributosImagen(cartaRevelada, revelada);
 
             cartas.add(cartaRevelada);
@@ -154,10 +150,10 @@ public class SpiderController {
         VistaCartaSpider vistaCarta = new VistaCartaSpider(carta);
         ImageView revelada = new ImageView(vistaCarta.getImagenCarta());
         Pane cartaRevelada = new Pane();
-        cartaRevelada.setPrefHeight(173.0);
-        cartaRevelada.setPrefWidth(117.0);
+        cartaRevelada.setPrefHeight(140);
+        cartaRevelada.setPrefWidth(101.75);
         setAtributosImagen(cartaRevelada, revelada);
-        cartaRevelada.setLayoutY(offsetY * 40);
+        cartaRevelada.setLayoutY(offsetY * 24);
         cartaRevelada.setOnMousePressed(event -> {
             if(cartaSeleccionada == null) {
                 cartaSeleccionada = carta;
