@@ -131,6 +131,7 @@ public class Main extends Application {
     private void juegoSpider(Stage stage, VBox ventanaJuego){
         Scene escena = new Scene(ventanaJuego);
         stage.setScene(escena);
+        stage.setFullScreen(true);
         stage.setResizable(true);
         escena.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.show();
