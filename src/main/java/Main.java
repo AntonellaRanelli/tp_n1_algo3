@@ -1,77 +1,154 @@
-import Base.Columna;
-import Base.Fundacion;
-import Base.Tablero;
+import Base.*;
+import Klondike.ControladorTablero;
 import Klondike.TableroKlondike;
+import Spider.SpiderController;
 import Spider.TableroSpider;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main extends Application {
-
-    @FXML
-    Button botonKlondike;
-    @FXML
-    Button botonSpider;
-
+    static Tablero tablero;
     @Override
     public void start(Stage stage) throws Exception {
-        var menuLoader = new FXMLLoader(getClass().getResource("menu.fxml"));
-        var spiderLoader = new FXMLLoader(getClass().getResource("solitarioSpider.fxml"));
-        var klondikeLoader = new FXMLLoader(getClass().getResource("solitarioSpider.fxml"));
+        checkJuegoGuardado(stage);
+    }
 
-        menuLoader.setController(this);
-        VBox ventanaSeleccion = menuLoader.load();
+    public void checkJuegoGuardado(Stage stage) {
+        try{
+            FileInputStream juego = new FileInputStream("datos.java");
+            continuarJuegoGuardado(stage, juego);
+        }catch (IOException ex){
+            seleccionarJuegoNuevo(stage);
+        }
+    }
 
-        var sceneSeleccion = new Scene(ventanaSeleccion);
+    public void continuarJuegoGuardado(Stage stage, FileInputStream juego){
+        try {
+            var menuJuegoGuardado = new FXMLLoader(getClass().getResource("juegoGuardado.fxml"));
+            VBox ventanaJuegoGuardado = menuJuegoGuardado.load();
+            Button botonSi = (Button) ventanaJuegoGuardado.lookup("#botonSi");
+            Button botonNo = (Button) ventanaJuegoGuardado.lookup("#botonNo");
 
+            var escena = new Scene(ventanaJuegoGuardado);
+            stage.setScene(escena);
+            stage.show();
 
-        stage.setScene(sceneSeleccion);
+            botonSi.setOnAction(actionEvent -> {
+                stage.close();
+                cargarJuegoGuardado(juego, stage);
+            });
+
+            botonNo.setOnAction(actionEvent -> {
+                stage.close();
+                seleccionarJuegoNuevo(stage);
+            });
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    void seleccionarJuegoNuevo(Stage stage){
+        FXMLLoader juegoKlondikeFXML = new FXMLLoader(getClass().getResource("solitarioKlondike.fxml"));
+        FXMLLoader juegoSpiderFXML = new FXMLLoader(getClass().getResource("solitarioSpider.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
+        try {
+            VBox ventanaSeleccion = loader.load();
+            var sceneSeleccion = new Scene(ventanaSeleccion);
+            stage.setScene(sceneSeleccion);
+            stage.show();
+
+            Button botonKlondike = (Button) ventanaSeleccion.lookup("#botonKlondike");
+            Button botonSpider = (Button) ventanaSeleccion.lookup("#botonSpider");
+
+            botonKlondike.setOnAction(actionEvent -> {
+                try {
+                    stage.close();
+                    TableroKlondike nuevoTablero = new TableroKlondike();
+                    ControladorTablero.setTableroKlondike(nuevoTablero);
+                    tablero = (Tablero) nuevoTablero;
+                    VBox ventanaJuego = juegoKlondikeFXML.load();
+                    juegoKlondike(stage, ventanaJuego);
+                }catch (IOException ex){
+                    ex.printStackTrace();
+                }
+            });
+
+            botonSpider.setOnAction(actionEvent -> {
+                try {
+                    stage.close();
+                    TableroSpider nuevoTablero = new TableroSpider();
+                    SpiderController.setTableroSpider(nuevoTablero);
+                    tablero = (Tablero) nuevoTablero;
+                    VBox ventanaJuego = juegoSpiderFXML.load();
+                    juegoSpider(stage, ventanaJuego);
+                }catch (IOException ex){
+                    ex.printStackTrace();
+                }
+            });
+
+        }catch (IOException ex){
+        }
+    }
+
+    boolean cargarJuegoGuardado(FileInputStream juego, Stage stage){
+
+        FXMLLoader juegoKlondikeFXML = new FXMLLoader(getClass().getResource("solitarioKlondike.fxml"));
+        FXMLLoader juegoSpiderFXML = new FXMLLoader(getClass().getResource("solitarioSpider.fxml"));
+        try {
+            stage.close();
+            Tablero nuevoTablero = Tablero.deserializar(juego);
+            tablero = nuevoTablero;
+            if (nuevoTablero instanceof TableroKlondike){
+                ControladorTablero.setTableroKlondike((TableroKlondike) nuevoTablero);
+                VBox ventanaJuego = juegoKlondikeFXML.load();
+                juegoKlondike(stage, ventanaJuego);
+            }else{
+                //juegoSpider((TableroSpider) nuevoTablero);
+                SpiderController.setTableroSpider((TableroSpider) nuevoTablero);
+                VBox ventanaJuego = juegoSpiderFXML.load();
+                juegoSpider(stage, ventanaJuego);
+            }
+        }catch (IOException | ClassNotFoundException ex){
+            return false;
+        }
+        return true;
+    }
+
+    private void juegoKlondike(Stage stage, VBox ventanaJuego){
+        Scene escena = new Scene(ventanaJuego);
+        stage.setScene(escena);
+        stage.setResizable(true);
+        escena.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.show();
+    }
 
-        botonKlondike.setOnAction(actionEvent -> {
-            try {
-                VBox ventanaJuego = klondikeLoader.load();
-                iniciarJuego(stage, ventanaJuego);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        botonSpider.setOnAction(actionEvent -> {
-            try {
-                VBox ventanaJuego = spiderLoader.load();
-                iniciarJuego(stage, ventanaJuego);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
+    private void juegoSpider(Stage stage, VBox ventanaJuego){
+        Scene escena = new Scene(ventanaJuego);
+        stage.setScene(escena);
+        stage.setFullScreen(true);
+        stage.setResizable(true);
+        escena.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        stage.show();
 
     }
 
-    private void iniciarJuego(Stage stage, VBox ventanaJuego) {
-        var scene = new Scene(ventanaJuego);
-        stage.close();
-        stage.setScene(scene);
-        stage.setResizable(false);
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        stage.show();
+    @Override
+    public void stop(){
+        try{
+            if (tablero instanceof TableroKlondike) {
+                tablero = ControladorTablero.getTablero();
+            } else{
+                tablero = SpiderController.getTablero();
+            }
+            tablero.serializar(new FileOutputStream("datos.java"));
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
     }
 }

@@ -32,10 +32,11 @@ public class Columna extends CartasApilable {
 
     public void sacarCartas(List<Carta> cartasASacar) {
         cartasReveladas.removeAll(cartasASacar);
-        this.revelarCarta();
+        if (cartasReveladas.isEmpty())
+            this.revelarCarta();
     }
 
-    public void sacarCartas(List<Carta> cartasASacar, boolean deberiaRevelar) {
+    public void sacarCartas2(List<Carta> cartasASacar, boolean deberiaRevelar) {
         cartasReveladas.removeAll(cartasASacar);
         if(deberiaRevelar) this.revelarCarta();
     }

@@ -233,8 +233,8 @@ public class TableroSpider extends Tablero {
         if(reglas.validarMovimientoEntreColumnas(cartasAMover, ultimaCartaRCD))
         {
             columnaDestino.agregarCarta(cartasAMover);
-            boolean deberiaRevelar = columnaOrigen.cantidadCartasReveladas() - cartasAMover.size() == 0;
-            columnaOrigen.sacarCartas(cartasAMover, deberiaRevelar);
+            //boolean deberiaRevelar = columnaOrigen.cantidadCartasReveladas() - cartasAMover.size() == 0;
+            columnaOrigen.sacarCartas(cartasAMover);
             return true;
         }
         return false;

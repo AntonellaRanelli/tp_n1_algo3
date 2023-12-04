@@ -1,6 +1,9 @@
+import Klondike.ReglasKlondike;
+import Klondike.TableroKlondike;
+import Spider.TableroSpider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
+import Base.*;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;

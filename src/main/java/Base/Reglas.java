@@ -1,11 +1,9 @@
 package Base;
 
-import java.io.Serializable;
-
-
 import Base.Carta;
 import Base.Fundacion;
 
+import java.io.Serializable;
 import java.util.List;
 
 public interface Reglas extends Serializable {

@@ -5,8 +5,8 @@
     -fx-padding: 16;
     -fx-border-color: black;
     -fx-border-width: 5px;
-    -fx-pref-width:141px;
-    -fx-pref-height:194px;
+    -fx-pref-width:117px;
+    -fx-pref-height:173px;
     -fx-cursor: hand;
 }
 
@@ -30,8 +30,8 @@
 }
 
 .columna-vacia {
-    -fx-pref-width: 141px;
-    -fx-pref-height: 194px;
+    -fx-pref-width: 117px;
+    -fx-pref-height: 173px;
     -fx-background-color: rgba(0, 0, 0, 0);
     -fx-cursor: hand;
 }
